@@ -1,8 +1,14 @@
 [gd_scene load_steps=7 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
+[ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
 [ext_resource type="PackedScene" uid="uid://6upxv8n0ij1s" path="res://player.tscn" id="2_o4541"]
 [ext_resource type="PackedScene" uid="uid://bhxgsiwfychjx" path="res://pad .tscn" id="3_o7ej4"]
+[ext_resource type="Script" path="res://playerCamera.gd" id="3_skmhl"]
+[ext_resource type="Script" path="res://inventory.gd" id="5_0lesq"]
+[ext_resource type="Script" path="res://mechanic.gd" id="6_ax6f2"]
+[ext_resource type="Script" path="res://moneyIcon.gd" id="6_uv0vj"]
+[ext_resource type="Script" path="res://swe.gd" id="8_k2hta"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -35,8 +41,65 @@ texture = ExtResource("1_6e481")
 sources/0 = SubResource("TileSetAtlasSource_qbnkj")
 sources/1 = SubResource("TileSetScenesCollectionSource_5mhx0")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_samh5"]
+atlas = ExtResource("1_6e481")
+region = Rect2(0, 32, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjid2"]
+atlas = ExtResource("1_6e481")
+region = Rect2(0, 16, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_688qv"]
+atlas = ExtResource("1_6e481")
+region = Rect2(17, 16, 17, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2cc"]
+atlas = ExtResource("1_6e481")
+region = Rect2(34, 16, 17, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_agrhl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_samh5")
+}],
+"loop": true,
+"name": &"chicken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjid2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_688qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq2cc")
+}],
+"loop": true,
+"name": &"pink_person",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3gbo"]
+atlas = ExtResource("1_6e481")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7002"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3gbo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="world" type="Node2D"]
 position = Vector2(0, -1)
+script = ExtResource("1_b8v5n")
 
 [node name="background" type="TileMap" parent="."]
 position = Vector2(1, 0)
@@ -57,3 +120,89 @@ position = Vector2(235, 272)
 
 [node name="Altuve" parent="." instance=ExtResource("3_o7ej4")]
 position = Vector2(500, 279)
+
+[node name="playerCamera" type="Camera2D" parent="player" node_paths=PackedStringArray("tilemapBackground")]
+position = Vector2(0, 4)
+script = ExtResource("3_skmhl")
+tilemapBackground = NodePath("../../background")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 669.0
+offset_bottom = 138.0
+script = ExtResource("5_0lesq")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 593.0
+offset_bottom = 112.0
+color = Color(0, 0, 0, 1)
+
+[node name="Inventory" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 609.0
+offset_bottom = 149.0
+
+[node name="mechanic" type="AnimatedSprite2D" parent="CanvasLayer/Control/Inventory"]
+position = Vector2(403, 50)
+scale = Vector2(4.13237, 3.85938)
+sprite_frames = SubResource("SpriteFrames_agrhl")
+animation = &"pink_person"
+script = ExtResource("6_ax6f2")
+
+[node name="mechanicLabel" type="RichTextLabel" parent="CanvasLayer/Control/Inventory/mechanic"]
+anchors_preset = -1
+anchor_left = -19.9206
+anchor_top = -13.1836
+anchor_right = -20.5088
+anchor_bottom = -12.9961
+offset_left = 355.589
+offset_top = 201.092
+offset_right = 405.589
+offset_bottom = 228.092
+text = " = 0"
+metadata/_edit_use_anchors_ = true
+
+[node name="moneyIcon" type="AnimatedSprite2D" parent="CanvasLayer/Control/Inventory"]
+position = Vector2(57, 53)
+scale = Vector2(3, 2.87499)
+sprite_frames = SubResource("SpriteFrames_f7002")
+script = ExtResource("6_uv0vj")
+
+[node name="moneyLabel" type="RichTextLabel" parent="CanvasLayer/Control/Inventory/moneyIcon"]
+anchors_preset = -1
+anchor_left = -19.858
+anchor_top = -13.435
+anchor_right = -19.858
+anchor_bottom = -13.435
+offset_left = 323.728
+offset_top = 204.96
+offset_right = 373.728
+offset_bottom = 231.96
+text = " = 0"
+metadata/_edit_use_anchors_ = true
+
+[node name="swe" type="AnimatedSprite2D" parent="CanvasLayer/Control/Inventory"]
+position = Vector2(225, 53)
+scale = Vector2(3, 2.87499)
+sprite_frames = SubResource("SpriteFrames_agrhl")
+animation = &"chicken"
+script = ExtResource("8_k2hta")
+
+[node name="sweLabel" type="RichTextLabel" parent="CanvasLayer/Control/Inventory/swe"]
+anchors_preset = -1
+anchor_left = -19.858
+anchor_top = -13.4078
+anchor_right = -19.858
+anchor_bottom = -13.4078
+offset_left = 340.586
+offset_top = 204.525
+offset_right = 390.586
+offset_bottom = 231.525
+text = " = 0"
+metadata/_edit_use_anchors_ = true
