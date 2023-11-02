@@ -50,7 +50,7 @@ position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_upjhx")
 
 [node name="shopmenu" parent="." instance=ExtResource("3_ol8m2")]
-position = Vector2(-198, -164)
+position = Vector2(-232, -196)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
