@@ -52,5 +52,8 @@ format = 2
 [node name="player" parent="." instance=ExtResource("2_o4541")]
 position = Vector2(0, -3)
 
-[node name="pad" parent="." instance=ExtResource("3_o7ej4")]
-position = Vector2(239, 133)
+[node name="BrownBear" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(235, 272)
+
+[node name="Altuve" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(500, 279)

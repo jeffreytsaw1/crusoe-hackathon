@@ -1,6 +1,8 @@
 extends StaticBody2D
 
 func _ready():
+	$shopmenu.pad_name = self.name
+	#$shopmenu.$padname = self.name
 	$shopmenu.visible = false
 
 func _on_area_2d_body_entered(body):
@@ -9,6 +11,7 @@ func _on_area_2d_body_entered(body):
 			$shopmenu.visible = false
 		else:
 			$shopmenu.visible = true
+		
 
 
 func _on_area_2d_body_exited(body):
