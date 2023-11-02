@@ -8,10 +8,12 @@ var number_of_cloud_boxes = 1
 var base_price_crypto = 50
 var base_price_cloud = 75
 
+signal buy_button_pressed
+
 var price = 100 # adjust based on thing
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	pad_name = self.get_parent().get_parent().name
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,12 +33,11 @@ func _physics_process(delta):
 
 
 func _on_buybutton_pressed():
-
 	if Global.money >= price and pad_owned == false:
 		pad_owned = true
-		self.visible = false
 		Global.money -= price
-
+		self.visible = false
+		buy_button_pressed.emit()
 
 func _on_add_pressed():
 	if number_of_crypto_boxes < 36:
@@ -56,3 +57,4 @@ func _on_addcloud_pressed():
 func _on_subtractcrypto_pressed():
 	if number_of_crypto_boxes > 1:
 		number_of_crypto_boxes -=1
+

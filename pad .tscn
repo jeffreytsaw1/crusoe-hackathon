@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
-[ext_resource type="PackedScene" uid="uid://c7p1vpjgyegta" path="res://shopmenu.tscn" id="3_ol8m2"]
+[ext_resource type="PackedScene" uid="uid://w3605uo10aq6" path="res://menu.tscn" id="3_kjdh1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
 atlas = ExtResource("2_k5cmt")
@@ -49,8 +49,8 @@ shape = SubResource("RectangleShape2D_2hv74")
 position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_upjhx")
 
-[node name="shopmenu" parent="." instance=ExtResource("3_ol8m2")]
-position = Vector2(-232, -196)
+[node name="menu" parent="." instance=ExtResource("3_kjdh1")]
+position = Vector2(-605, -304)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,154 @@
+[gd_scene load_steps=10 format=3 uid="uid://uxw8wt6hyl1w"]
+
+[ext_resource type="Texture2D" uid="uid://dgpjniklsm6lm" path="res://hashrate.png" id="1_pm31e"]
+[ext_resource type="Script" path="res://statsandactions.gd" id="1_rbd5i"]
+[ext_resource type="Texture2D" uid="uid://c1lokkoupl4r8" path="res://cloud_down.png" id="2_wkpkb"]
+[ext_resource type="Texture2D" uid="uid://b8jpw28f70luu" path="res://cloud_up.png" id="3_f43po"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo4hm"]
+atlas = ExtResource("1_pm31e")
+region = Rect2(0, 0, 96, 76)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a7xn7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo4hm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8q0f"]
+atlas = ExtResource("2_wkpkb")
+region = Rect2(0, 0, 64, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqgqg"]
+atlas = ExtResource("3_f43po")
+region = Rect2(0, 0, 60, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fm7yt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8q0f")
+}],
+"loop": true,
+"name": &"cloudoff",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqgqg")
+}],
+"loop": true,
+"name": &"cloudon",
+"speed": 5.0
+}]
+
+[node name="statsandactions" type="StaticBody2D"]
+script = ExtResource("1_rbd5i")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 468.0
+offset_top = -10.0
+offset_right = 865.0
+offset_bottom = 405.0
+color = Color(0.196078, 0.188235, 0.184314, 1)
+
+[node name="hashrateicon" type="AnimatedSprite2D" parent="."]
+position = Vector2(585.5, 33)
+scale = Vector2(0.802084, 0.763158)
+sprite_frames = SubResource("SpriteFrames_a7xn7")
+
+[node name="hashrate" type="RichTextLabel" parent="."]
+offset_left = 555.0
+offset_top = 57.0
+offset_right = 631.0
+offset_bottom = 86.0
+text = "Hashrate
+"
+
+[node name="cloudstatusicon" type="AnimatedSprite2D" parent="."]
+position = Vector2(717, 34)
+sprite_frames = SubResource("SpriteFrames_fm7yt")
+animation = &"cloudon"
+
+[node name="clouduptime" type="RichTextLabel" parent="."]
+offset_left = 669.0
+offset_top = 59.0
+offset_right = 795.0
+offset_bottom = 99.0
+text = "Active GPUs"
+
+[node name="hashratevalue" type="RichTextLabel" parent="."]
+offset_left = 544.0
+offset_top = 81.0
+offset_right = 642.0
+offset_bottom = 121.0
+text = "uytfiuftiutf"
+
+[node name="clouduptimevalue" type="RichTextLabel" parent="."]
+offset_left = 682.0
+offset_top = 82.0
+offset_right = 789.0
+offset_bottom = 122.0
+text = "23456677"
+
+[node name="upgrademinerstext" type="RichTextLabel" parent="."]
+offset_left = 534.0
+offset_top = 140.0
+offset_right = 805.0
+offset_bottom = 172.0
+text = "Upgrade Miners						100"
+
+[node name="upgrademinerstext2" type="RichTextLabel" parent="."]
+offset_left = 535.0
+offset_top = 201.0
+offset_right = 806.0
+offset_bottom = 233.0
+text = "Maintenance							100"
+
+[node name="upgrademinerstext3" type="RichTextLabel" parent="."]
+offset_left = 536.0
+offset_top = 260.0
+offset_right = 805.0
+offset_bottom = 292.0
+text = "Fix issue					      	            100"
+
+[node name="upgrademinerstext4" type="RichTextLabel" parent="."]
+offset_left = 539.0
+offset_top = 322.0
+offset_right = 810.0
+offset_bottom = 354.0
+text = "Check    			  						   100"
+
+[node name="upgrademiners" type="Button" parent="."]
+offset_left = 522.0
+offset_top = 128.0
+offset_right = 810.0
+offset_bottom = 175.0
+
+[node name="maintenance" type="Button" parent="."]
+offset_left = 522.0
+offset_top = 188.0
+offset_right = 811.0
+offset_bottom = 237.0
+
+[node name="fix" type="Button" parent="."]
+offset_left = 523.0
+offset_top = 250.0
+offset_right = 812.0
+offset_bottom = 299.0
+
+[node name="check" type="Button" parent="."]
+offset_left = 523.0
+offset_top = 311.0
+offset_right = 812.0
+offset_bottom = 360.0
+
+[connection signal="pressed" from="upgrademiners" to="." method="_on_upgrademiners_pressed"]
+[connection signal="pressed" from="maintenance" to="." method="_on_maintenance_pressed"]
+[connection signal="pressed" from="fix" to="." method="_on_fix_pressed"]
+[connection signal="pressed" from="check" to="." method="_on_check_pressed"]
