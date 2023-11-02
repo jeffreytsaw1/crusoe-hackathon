@@ -1,6 +1,8 @@
 extends StaticBody2D
 
+var rng = RandomNumberGenerator.new()
 
+# variables
 var pad_owned = false
 var pad_name = ""
 var number_of_crypto_boxes = 1
@@ -14,7 +16,6 @@ var price = 100 # adjust based on thing
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pad_name = self.get_parent().get_parent().name
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
