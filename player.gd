@@ -29,7 +29,9 @@ func _physics_process(delta):
 		
 	velocity = velocity
 	move_and_slide()
-
+	
+func player_pad_method():
+	pass
 
 #const SPEED = 300.0
 #const JUMP_VELOCITY = -400.0

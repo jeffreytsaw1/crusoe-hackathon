@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhxgsiwfychjx"]
+
+[ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
+[ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
+[ext_resource type="PackedScene" uid="uid://c7p1vpjgyegta" path="res://shopmenu.tscn" id="3_ol8m2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
+atlas = ExtResource("2_k5cmt")
+region = Rect2(0, 174, 32, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0jk3"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jv3d0")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hv74"]
+size = Vector2(33, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_upjhx"]
+radius = 51.0098
+
+[node name="pad" type="StaticBody2D"]
+script = ExtResource("1_ya8v6")
+
+[node name="padart" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.999996, -0.999997)
+scale = Vector2(2.03125, 1.84483)
+sprite_frames = SubResource("SpriteFrames_g0jk3")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_2hv74")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_upjhx")
+
+[node name="shopmenu" parent="." instance=ExtResource("3_ol8m2")]
+position = Vector2(-198, -164)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

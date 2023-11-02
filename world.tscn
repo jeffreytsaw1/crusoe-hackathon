@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=7 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="PackedScene" uid="uid://6upxv8n0ij1s" path="res://player.tscn" id="2_o4541"]
+[ext_resource type="PackedScene" uid="uid://bhxgsiwfychjx" path="res://pad .tscn" id="3_o7ej4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -49,4 +50,7 @@ visible = false
 format = 2
 
 [node name="player" parent="." instance=ExtResource("2_o4541")]
-position = Vector2(0, -4)
+position = Vector2(0, -3)
+
+[node name="pad" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(239, 133)

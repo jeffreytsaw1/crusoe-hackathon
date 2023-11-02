@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7p1vpjgyegta"]
+
+[ext_resource type="Script" path="res://shopmenu.gd" id="1_rug6c"]
+[ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_2281d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1u35e"]
+atlas = ExtResource("2_2281d")
+region = Rect2(65, 80, 13, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r6w8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1u35e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="shopmenu" type="StaticBody2D"]
+script = ExtResource("1_rug6c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 130.0
+offset_top = 23.0
+offset_right = 273.0
+offset_bottom = 113.0
+color = Color(0.165116, 0.201936, 0.212833, 1)
+
+[node name="price" type="RichTextLabel" parent="."]
+offset_left = 201.0
+offset_top = 27.0
+offset_right = 241.0
+offset_bottom = 67.0
+text = "100"
+
+[node name="coin" type="AnimatedSprite2D" parent="."]
+position = Vector2(245, 39)
+scale = Vector2(1.65385, 1.4375)
+sprite_frames = SubResource("SpriteFrames_r6w8c")
+
+[node name="padname" type="RichTextLabel" parent="."]
+offset_left = 154.0
+offset_top = 54.0
+offset_right = 247.0
+offset_bottom = 79.0
+text = "BrownBear"
+
+[node name="buybuttoncolour" type="ColorRect" parent="."]
+offset_left = 165.0
+offset_top = 81.0
+offset_right = 236.0
+offset_bottom = 106.0
+color = Color(0.368627, 0.627451, 0.113725, 1)
+
+[node name="buybutton" type="Button" parent="."]
+offset_left = 164.0
+offset_top = 80.0
+offset_right = 234.0
+offset_bottom = 107.0
+
+[connection signal="pressed" from="buybutton" to="." method="_on_buybutton_pressed"]

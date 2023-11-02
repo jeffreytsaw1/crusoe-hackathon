@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://6upxv8n0ij1s"]
+[gd_scene load_steps=15 format=3 uid="uid://6upxv8n0ij1s"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_ksq66"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_0fnv1"]
@@ -96,13 +96,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2yerp"]
+radius = 28.0179
+
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_ksq66")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, -5)
-scale = Vector2(4.6154, 5.5505)
+position = Vector2(-8.4616, 8.202)
+scale = Vector2(3.3077, 3.90025)
 sprite_frames = SubResource("SpriteFrames_62mqv")
 animation = &"downwalk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-9, 13)
+shape = SubResource("CircleShape2D_2yerp")
