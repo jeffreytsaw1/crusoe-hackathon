@@ -94,8 +94,9 @@ func action_collect_bitcoin():
 func action_check():
 	last_check = Time.get_unix_time_from_system()
 	for event in events_occurred:
-		if event["domain"] == "check_cloud":
-			events_occurred.erase(event)
+		for event_key in events:
+			if event_key == event and events[event_key]["domain"] == "check_cloud":
+				events_occurred.erase(event)
 			
 	reset_next_time_of_failure()
 

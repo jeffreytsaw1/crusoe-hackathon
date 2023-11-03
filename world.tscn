@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://StatTotalGPUs.gd" id="13_odikx"]
 [ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
 [ext_resource type="PackedScene" uid="uid://0v02ybouujmo" path="res://swehiring.tscn" id="14_t1c03"]
-[ext_resource type="PackedScene" uid="uid://7lagn2fuoey1" path="res://allswes.tscn" id="17_p0q30"]
+[ext_resource type="PackedScene" path="res://allswes.tscn" id="17_p0q30"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
