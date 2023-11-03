@@ -111,3 +111,26 @@ animation = &"downwalk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-9, 13)
 shape = SubResource("CircleShape2D_2yerp")
+
+[node name="help" type="ColorRect" parent="."]
+offset_left = -257.0
+offset_top = -253.0
+offset_right = 325.0
+offset_bottom = 55.0
+color = Color(0.164706, 0.2, 0.211765, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="help"]
+layout_mode = 0
+offset_right = 580.0
+offset_bottom = 304.0
+text = "How to Play:
+Buy Cloud & Crypto boxes at different sites. 
+Recruit SWEs, PMs, and Nick's to help (don't forget to feed your SWEs).
+Buy upgrades to increase your throughput. 
+Watch out for events that will cause boxes to go down! 
+Collect enough money to IPO and win!
+
+Important keys:
+'Enter' to collect bitcoin at various sites
+'Backspace' to show stats and menus at different sites
+'Tab' to show advanced stats at different sites"

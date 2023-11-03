@@ -2,9 +2,15 @@ extends CharacterBody2D
 
 const speed = 500
 
+func _ready():
+	$help.visible = false
+	set_process(true)
+
 
 func _physics_process(delta):
 	if Global.IPO:
+		return
+	if $help.visible:
 		return
 	if Input.is_action_pressed("ui_right"):
 		$AnimatedSprite2D.play("sidewalk")
@@ -34,6 +40,14 @@ func _physics_process(delta):
 	
 func player_pad_method():
 	pass
+
+func _input(event):
+	if Input.is_action_pressed("ui_cancel"):
+		if $help.visible:
+			$help.visible = false
+		else:
+			$help.visible = true
+	
 
 #const SPEED = 300.0
 #const JUMP_VELOCITY = -400.0
