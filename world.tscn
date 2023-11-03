@@ -105,7 +105,7 @@ metadata/_edit_use_anchors_ = true
 [node name="sweLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Mechanic Label"
+text = "SWE Label"
 fit_content = true
 script = ExtResource("8_bl08m")
 metadata/_edit_use_anchors_ = true
@@ -113,7 +113,7 @@ metadata/_edit_use_anchors_ = true
 [node name="moneyLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Mechanic Label"
+text = "Money Label"
 fit_content = true
 script = ExtResource("9_wnhuu")
 metadata/_edit_use_anchors_ = true
