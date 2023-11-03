@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
 [ext_resource type="PackedScene" uid="uid://6upxv8n0ij1s" path="res://player.tscn" id="2_o4541"]
-[ext_resource type="PackedScene" uid="uid://bcsejy4qdqso6" path="res://pad .tscn" id="3_o7ej4"]
+[ext_resource type="PackedScene" uid="uid://bhxgsiwfychjx" path="res://pad .tscn" id="3_o7ej4"]
 [ext_resource type="Script" path="res://playerCamera.gd" id="3_skmhl"]
 [ext_resource type="Script" path="res://inventory.gd" id="5_0lesq"]
 [ext_resource type="Script" path="res://sweLabel.gd" id="8_bl08m"]

@@ -8,7 +8,8 @@
 script = ExtResource("1_d6igj")
 
 [node name="shopmenu" parent="." instance=ExtResource("2_y133n")]
-position = Vector2(310, -14)
+position = Vector2(308, 124)
 
 [node name="statsandactions" parent="." instance=ExtResource("3_mb5w5")]
+visible = false
 position = Vector2(-66, -22)

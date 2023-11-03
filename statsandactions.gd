@@ -24,8 +24,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	hashrate = self.get_parent().get_parent().hashrate
+	hashrate = max(0, self.get_parent().get_parent().hashrate)
 	$hashratevalue.text = str(hashrate)
+	active_gpus = max(0, self.get_parent().get_parent().active_gpus)
 	$clouduptimevalue.text = str(active_gpus)
 #	$name.text = self.get_parent().get_parent().name # TODO i dunno why this is breaking
 
@@ -54,4 +55,4 @@ func _on_fix_pressed():
 
 
 func _on_check_pressed():
-	pass # Replace with function body.
+	check_taken.emit()

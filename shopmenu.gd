@@ -5,8 +5,8 @@ var rng = RandomNumberGenerator.new()
 # variables
 var pad_owned = false
 var pad_name = ""
-var number_of_crypto_boxes = 1
-var number_of_cloud_boxes = 1
+var number_of_crypto_boxes = 0
+var number_of_cloud_boxes = 0
 var base_price_crypto = 50
 var base_price_cloud = 75
 
@@ -34,28 +34,28 @@ func _physics_process(delta):
 
 
 func _on_buybutton_pressed():
-	if Global.money >= price and pad_owned == false:
+	if Global.money >= price and pad_owned == false and price > 0:
 		pad_owned = true
 		Global.money -= price
 		self.visible = false
 		buy_button_pressed.emit()
 
 func _on_add_pressed():
-	if number_of_crypto_boxes < 36:
+	if number_of_crypto_boxes < 10:
 		number_of_crypto_boxes += 1
 	
 
 func _on_subtractcloud_pressed():
-	if number_of_cloud_boxes > 1:
+	if number_of_cloud_boxes >=1:
 		number_of_cloud_boxes -= 1
 
 
 func _on_addcloud_pressed():
-	if number_of_cloud_boxes < 10:
+	if number_of_cloud_boxes <= 10:
 		number_of_cloud_boxes += 1
 
 
 func _on_subtractcrypto_pressed():
-	if number_of_crypto_boxes > 1:
+	if number_of_crypto_boxes >= 1:
 		number_of_crypto_boxes -=1
 

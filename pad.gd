@@ -4,16 +4,18 @@ var pad_owned = false
 var interactable_body = null
 var hashrate_per_box = 10
 var timer
+var active_gpus_per_box = 10
+
+
 	
 const probability_bitcoin_per_TH = .0001
 
 const events = {
-	"snow_storm": {"domain": "pad", "probability": .1, "multiplier": .34},
-	"well_outage": {"domain": "pad", "probability": .2, "multiplier": .2},
-	"internet_outage": {"domain": "pad", "probability": .1, "multiplier": 0},
-	"box_on_fire": {"domain": "box", "probability": .01, "multiplier": 0},
-	"broken_louvers": {"domain": "box", "probability": .01, "multiplier": .75},
-	"rack_disconnected": {"domain": "crypto", "probability": .1, "multiplier": .8},
+	"snow_storm": {"domain": "pad", "probability": .1, "multiplier": .85},
+	"internet_outage": {"domain": "pad", "probability": .05, "multiplier": 0},
+	"box_on_fire": {"domain": "box", "probability": .05, "multiplier": 0},
+	"broken_louvers": {"domain": "box", "probability": .1, "multiplier": .75},
+	"miner_disconnect": {"domain": "crypto", "probability": .1, "multiplier": .5},
 	"ssh_failure": {"domain": "cloud", "probability": .1, "multiplier": .35},
 	"lightbits_failure": {"domain": "cloud", "probability": .1, "multiplier": .4},
 	"vm_died": {"domain": "cloud", "probability": .075, "multiplier": .25},
@@ -39,7 +41,11 @@ var events_occurred = [] # maintain list of events that have occurred
 var bitcoins = 0
 
 var is_being_fixed = false
-var end_maintenance_time
+var end_maintenance_time = 0
+
+var gameTick = Time.get_unix_time_from_system() + 1
+
+var check_cloud_box_increment = 40
 
 # fixes incur total downtime. time increases exponentially with missing capacity.
 # TODO do downtime divided by boxes
@@ -48,14 +54,16 @@ func action_start_fix():
 	hashrate = 0
 	active_gpus = 0
 	
-	var cloud_fix_time = 7*pow(gpu_capacity-active_gpus,3)
-	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/4,2)
-	
+	var cloud_fix_time = 1.7*pow((gpu_capacity-active_gpus)/20,3)
+	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/10,2)
+	print(crypto_fix_time + cloud_fix_time)
 	end_maintenance_time = Time.get_unix_time_from_system() + crypto_fix_time + cloud_fix_time
 	
 func process_end_fix():
 	if end_maintenance_time == 0:
 		return
+	
+	next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
 		
 	if Time.get_unix_time_from_system() > end_maintenance_time:
 		end_fix()
@@ -69,11 +77,17 @@ func end_fix():
 func process_mine_bitcoin():
 	if randf() < probability_bitcoin_per_TH*hashrate:
 		bitcoins += 1
+		
+func process_cloud_revenue():
+	Global.money += 0.7 * active_gpus
+	print(Global.money)
 
 func action_collect_bitcoin():
 	Global.money +=  bitcoins * Global.bitcoin_price
 	bitcoins = 0
-	print(Global.money)
+
+func action_check():
+	reset_next_time_of_failure()
 
 func reset_next_time_of_failure():
 	next_time_of_failure = 0
@@ -82,7 +96,9 @@ func check():
 	return next_time_of_failure != 0
 
 func process_induce_cloud_failure_if_needed():
-	if next_time_of_failure > Time.get_unix_time_from_system():
+	if next_time_of_failure == 0:
+		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
+	if next_time_of_failure < Time.get_unix_time_from_system():
 		active_gpus = 0
 
 func pad_effect(multiplier):
@@ -91,15 +107,18 @@ func pad_effect(multiplier):
 func box_effect(multiplier, box_type):
 	match box_type:
 		"crypto":
-			hashrate = hashrate - hashrate * ((1.0-multiplier) / num_crypto_boxes)
+			if hashrate > 0:
+				hashrate = hashrate - hashrate * ((1.0-multiplier) / num_crypto_boxes)
 		"cloud":
-			hashrate = hashrate - hashrate * ((1.0-multiplier) / num_cloud_boxes)
+			if active_gpus > 0:
+				active_gpus = active_gpus - active_gpus * ((1.0-multiplier) / num_cloud_boxes)
 		"box":
-			hashrate = hashrate - hashrate * ((1.0-multiplier) / (num_crypto_boxes + num_crypto_boxes))
+			if hashrate > 0:
+				hashrate = hashrate - hashrate * ((1.0-multiplier) / (num_crypto_boxes + num_crypto_boxes))
 			
 func delayed_cloud_effect():
 	if next_time_of_failure == 0:
-		next_time_of_failure = Time.get_unix_time_from_system() + 300; # 5 minutes from now
+		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment; # 40s from now
 
 func process_update_events():
 	for event_key in events:
@@ -175,13 +194,17 @@ func boughtPad():
 	num_cloud_boxes = $menu.get_node("shopmenu").number_of_cloud_boxes
 	hashrate_capacity = num_crypto_boxes * hashrate_per_box
 	hashrate = hashrate_capacity
+	gpu_capacity = num_cloud_boxes * active_gpus_per_box
+	active_gpus = gpu_capacity
+	if gpu_capacity > 0:
+		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
+		
+	
+	
 
 func _on_timer_timeout():
 	if !is_being_fixed:
 		process_update_events()
-		process_induce_cloud_failure_if_needed()
-	else:
-		process_end_fix()
 
 
 # IMPORTANT GAME FUNCTIONS BUILT IN
@@ -191,15 +214,13 @@ func _ready():
 	$menu.get_node("statsandactions").upgrade_action_taken.connect(action_attempt_perform_upgrade)
 	$menu.get_node("statsandactions").maintenance_action_taken.connect(notImplemented)
 	$menu.get_node("statsandactions").fix_action_taken.connect(action_start_fix)
-	$menu.get_node("statsandactions").check_taken.connect(notImplemented)
+	$menu.get_node("statsandactions").check_taken.connect(action_check)
 	$menu.get_node("shopmenu").buy_button_pressed.connect(boughtPad)
+	set_process_input(true)
 	
-	timer = Timer.new()
-	timer.wait_time = 1.0
-	timer.autostart = true
-	timer.start()
 	
-	timer.timeout.connect(_on_timer_timeout)
+	
+	
 	
 func _process(delta):
 	pad_owned = $menu.pad_owned
@@ -207,13 +228,21 @@ func _process(delta):
 		$bitcoin.visible = true
 	else:
 		$bitcoin.visible = false
-	process_mine_bitcoin()
-	
-	$menu.get_node("statsandactions").upgrade_miners_cost = get_next_upgrade_total_cost()
+	if Time.get_unix_time_from_system() >= gameTick:
+		process_mine_bitcoin()
+		process_induce_cloud_failure_if_needed()
+		process_cloud_revenue()
+		process_end_fix()
+		_on_timer_timeout()
+		$menu.get_node("statsandactions").upgrade_miners_cost = get_next_upgrade_total_cost()
+
+		gameTick = Time.get_unix_time_from_system() + 1
+		
 
 func _on_area_2d_body_entered(body):
 	if body.has_method("player_pad_method"):
-		$menu.render()
+		if not pad_owned:
+			$menu.render()
 		interactable_body = body
 
 func _on_area_2d_body_exited(body):
@@ -225,3 +254,6 @@ func _input(event):
 		if event.is_action_pressed("ui_accept"):
 			action_collect_bitcoin()
 			$bitcoin.visible = false
+		if event.is_action_pressed("ui_text_backspace"):
+			$menu.render()
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcsejy4qdqso6"]
+[gd_scene load_steps=10 format=3 uid="uid://bhxgsiwfychjx"]
 
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
@@ -65,7 +65,7 @@ position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_upjhx")
 
 [node name="menu" parent="." instance=ExtResource("3_kjdh1")]
-position = Vector2(-605, -304)
+position = Vector2(-605, -374)
 
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
 position = Vector2(-25, 25)
