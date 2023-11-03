@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=18 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://StatCloudBoxes.gd" id="11_t67vh"]
 [ext_resource type="Script" path="res://StatTotalHashrateCapacity.gd" id="12_srdhx"]
 [ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
+[ext_resource type="PackedScene" uid="uid://0v02ybouujmo" path="res://swehiring.tscn" id="14_t1c03"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -70,7 +71,7 @@ tilemapBackground = NodePath("../../background")
 position = Vector2(235, 272)
 
 [node name="Altuve" parent="." instance=ExtResource("3_o7ej4")]
-position = Vector2(500, 279)
+position = Vector2(724, 273)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 0
@@ -166,3 +167,6 @@ bbcode_enabled = true
 text = "Crypto Boxes: 0"
 fit_content = true
 script = ExtResource("13_wqrwc")
+
+[node name="swehiring" parent="." instance=ExtResource("14_t1c03")]
+position = Vector2(-291, 420)

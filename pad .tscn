@@ -49,26 +49,27 @@ animations = [{
 script = ExtResource("1_ya8v6")
 
 [node name="padart" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.999996, -0.999997)
+position = Vector2(50.5, 25.75)
 scale = Vector2(2.03125, 1.84483)
 sprite_frames = SubResource("SpriteFrames_g0jk3")
 animation = &"new_animation"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 4)
+position = Vector2(50, 22.7501)
 shape = SubResource("RectangleShape2D_2hv74")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(49.5, 18.7501)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_upjhx")
 
 [node name="menu" parent="." instance=ExtResource("3_kjdh1")]
-position = Vector2(-605, -374)
+position = Vector2(79, -180)
 
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
-position = Vector2(-25, 25)
+position = Vector2(20, 47)
 scale = Vector2(1.9375, 1.75)
 sprite_frames = SubResource("SpriteFrames_ba652")
 

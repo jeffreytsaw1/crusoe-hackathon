@@ -80,7 +80,6 @@ func process_mine_bitcoin():
 		
 func process_cloud_revenue():
 	Global.money += 0.7 * active_gpus
-	print(Global.money)
 
 func action_collect_bitcoin():
 	Global.money +=  bitcoins * Global.bitcoin_price

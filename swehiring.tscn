@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://0v02ybouujmo"]
+
+[ext_resource type="Script" path="res://swehiring.gd" id="1_kmkkm"]
+[ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_xvwg4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fh42"]
+atlas = ExtResource("2_xvwg4")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4yyvf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fh42")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0wj7"]
+atlas = ExtResource("2_xvwg4")
+region = Rect2(0, 182, 34, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ix37o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0wj7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kc1jv"]
+size = Vector2(54, 42)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iuuck"]
+radius = 38.1182
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bs2d"]
+atlas = ExtResource("2_xvwg4")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mkxjx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bs2d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="swehiring" type="StaticBody2D"]
+script = ExtResource("1_kmkkm")
+
+[node name="swe" type="AnimatedSprite2D" parent="."]
+position = Vector2(110, 32)
+scale = Vector2(1.3125, 1.1875)
+sprite_frames = SubResource("SpriteFrames_4yyvf")
+
+[node name="shop" type="AnimatedSprite2D" parent="."]
+position = Vector2(113.5, 32)
+scale = Vector2(2.02941, 1.84615)
+sprite_frames = SubResource("SpriteFrames_ix37o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(110, 29)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_kc1jv")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(110, 29)
+shape = SubResource("CircleShape2D_iuuck")
+
+[node name="sign" type="ColorRect" parent="."]
+visible = false
+offset_left = 8.0
+offset_top = -72.0
+offset_right = 223.0
+offset_bottom = -11.0
+color = Color(0.164706, 0.2, 0.211765, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="sign"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 216.0
+offset_bottom = 56.0
+text = "Press 'Enter' to buy a SWE
+					=    45"
+
+[node name="swe2" type="AnimatedSprite2D" parent="sign"]
+position = Vector2(59.25, 40.75)
+scale = Vector2(1.71875, 1.34375)
+sprite_frames = SubResource("SpriteFrames_4yyvf")
+
+[node name="coin" type="AnimatedSprite2D" parent="sign"]
+position = Vector2(151.5, 41)
+scale = Vector2(1.6875, 1.5)
+sprite_frames = SubResource("SpriteFrames_mkxjx")
+
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="body_shape_exited" from="Area2D" to="." method="_on_area_2d_body_shape_exited"]
