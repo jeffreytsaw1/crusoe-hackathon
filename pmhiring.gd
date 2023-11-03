@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-var pms_cost = 350
+var pms_cost = 200
 var interactable_body = null
 
 # Called when the node enters the scene tree for the first time.

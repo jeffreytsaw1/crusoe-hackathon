@@ -124,7 +124,7 @@ offset_left = 34.0
 offset_top = 31.0
 offset_right = 191.0
 offset_bottom = 64.0
-text = "         =     350"
+text = "         =     200"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

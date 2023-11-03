@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=26 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://moneyLabel.gd" id="9_wnhuu"]
 [ext_resource type="Script" path="res://StatTotalHashrate.gd" id="10_3h4jj"]
 [ext_resource type="Script" path="res://docsLabel.gd" id="10_oca71"]
+[ext_resource type="Script" path="res://pmsLabel.gd" id="10_ydnty"]
 [ext_resource type="Script" path="res://StatCloudBoxes.gd" id="11_t67vh"]
 [ext_resource type="Script" path="res://StatTotalHashrateCapacity.gd" id="12_srdhx"]
 [ext_resource type="Script" path="res://StatActiveGPUs.gd" id="12_x2x01"]
@@ -147,12 +148,12 @@ fit_content = true
 script = ExtResource("9_wnhuu")
 metadata/_edit_use_anchors_ = true
 
-[node name="docsLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer"]
+[node name="pmsLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "Docs Label"
+text = "PMs Label"
 fit_content = true
-script = ExtResource("10_oca71")
+script = ExtResource("10_ydnty")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 0
@@ -214,6 +215,13 @@ bbcode_enabled = true
 text = "Crypto Boxes: 0"
 fit_content = true
 script = ExtResource("13_wqrwc")
+
+[node name="docsLabel" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Docs Label"
+fit_content = true
+script = ExtResource("10_oca71")
 
 [node name="swehiring" parent="." instance=ExtResource("14_t1c03")]
 position = Vector2(-114, -93)
