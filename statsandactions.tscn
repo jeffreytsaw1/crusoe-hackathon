@@ -58,42 +58,42 @@ offset_bottom = 405.0
 color = Color(0.196078, 0.188235, 0.184314, 1)
 
 [node name="hashrateicon" type="AnimatedSprite2D" parent="."]
-position = Vector2(585.5, 33)
+position = Vector2(585.5, 50)
 scale = Vector2(0.802084, 0.763158)
 sprite_frames = SubResource("SpriteFrames_a7xn7")
 
 [node name="hashrate" type="RichTextLabel" parent="."]
 offset_left = 555.0
-offset_top = 57.0
+offset_top = 74.0
 offset_right = 631.0
-offset_bottom = 86.0
+offset_bottom = 103.0
 text = "Hashrate
 "
 
 [node name="cloudstatusicon" type="AnimatedSprite2D" parent="."]
-position = Vector2(717, 34)
+position = Vector2(717, 51)
 sprite_frames = SubResource("SpriteFrames_fm7yt")
 animation = &"cloudon"
 
 [node name="clouduptime" type="RichTextLabel" parent="."]
 offset_left = 669.0
-offset_top = 59.0
+offset_top = 76.0
 offset_right = 795.0
-offset_bottom = 99.0
+offset_bottom = 116.0
 text = "Active GPUs"
 
 [node name="hashratevalue" type="RichTextLabel" parent="."]
 offset_left = 544.0
-offset_top = 81.0
+offset_top = 98.0
 offset_right = 642.0
-offset_bottom = 121.0
+offset_bottom = 138.0
 text = "uytfiuftiutf"
 
 [node name="clouduptimevalue" type="RichTextLabel" parent="."]
 offset_left = 682.0
-offset_top = 82.0
+offset_top = 99.0
 offset_right = 789.0
-offset_bottom = 122.0
+offset_bottom = 139.0
 text = "23456677"
 
 [node name="upgrademinerstext" type="RichTextLabel" parent="."]
@@ -147,6 +147,12 @@ offset_left = 523.0
 offset_top = 311.0
 offset_right = 812.0
 offset_bottom = 360.0
+
+[node name="name" type="RichTextLabel" parent="."]
+offset_left = 472.0
+offset_right = 614.0
+offset_bottom = 40.0
+text = "Brownbear"
 
 [connection signal="pressed" from="upgrademiners" to="." method="_on_upgrademiners_pressed"]
 [connection signal="pressed" from="maintenance" to="." method="_on_maintenance_pressed"]

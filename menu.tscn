@@ -11,4 +11,4 @@ script = ExtResource("1_d6igj")
 position = Vector2(310, -14)
 
 [node name="statsandactions" parent="." instance=ExtResource("3_mb5w5")]
-position = Vector2(-52, -90)
+position = Vector2(-66, -22)

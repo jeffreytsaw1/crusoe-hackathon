@@ -10,4 +10,4 @@ var num_mechanics = 1
 var total_hashrate = 0
 var total_hashrate_capacity = 0
 
-var bitcoin_price = 35000
+var bitcoin_price = 3.5
