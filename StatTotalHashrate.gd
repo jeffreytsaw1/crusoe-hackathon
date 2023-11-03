@@ -1,10 +1,17 @@
 extends RichTextLabel
 
+var min_swe = 5
+
 func _ready():
 	updateText()
+	self.visible = false
 
 func _process(_delta):
 	updateText()
+	if Global.num_swe < min_swe:
+		self.visible = false
+	else:
+		self.visible = true
 	
 func updateText():
 	# BBCode string with an image and text

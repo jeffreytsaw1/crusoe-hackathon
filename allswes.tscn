@@ -1,0 +1,141 @@
+[gd_scene load_steps=7 format=3 uid="uid://7lagn2fuoey1"]
+
+[ext_resource type="Script" path="res://allswes.gd" id="1_b2q73"]
+[ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_2ivcq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e4o4"]
+size = Vector2(149.333, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnpd4"]
+atlas = ExtResource("2_2ivcq")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_geenb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnpd4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p66ev"]
+size = Vector2(213.5, 166)
+
+[node name="allswes" type="StaticBody2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_b2q73")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -61.3333
+offset_top = -180.0
+offset_right = 205.667
+offset_bottom = -102.0
+color = Color(0.164706, 0.2, 0.211765, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(82, -3)
+shape = SubResource("RectangleShape2D_0e4o4")
+
+[node name="swecontainer" type="StaticBody2D" parent="."]
+
+[node name="swe" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(24, -41)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe2" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(51.3333, -40)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe3" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(80.3334, -38.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe4" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(111.667, -37.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe5" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(139, -38)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe6" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(23, -4.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe7" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(50.3333, -3.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe8" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(79.3333, -2)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe9" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(110.667, -1)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe10" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(138, -1.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe11" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(25, 33.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe12" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(52.3333, 34.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe13" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(81.3333, 36)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe14" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(112.667, 37)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="swe15" type="AnimatedSprite2D" parent="swecontainer"]
+position = Vector2(140, 36.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_geenb")
+
+[node name="sweaccess" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sweaccess"]
+position = Vector2(78, -8)
+shape = SubResource("RectangleShape2D_p66ev")
+
+[node name="feedswesign" type="RichTextLabel" parent="."]
+offset_left = -51.3333
+offset_top = -170.0
+offset_right = 186.667
+offset_bottom = -97.0
+text = "Press Enter to Feed the SWEs! 
+SWE Happiness: "
+
+[node name="swehappiness" type="RichTextLabel" parent="."]
+offset_left = 79.3333
+offset_top = -146.0
+offset_right = 135.333
+offset_bottom = -123.0
+text = "1"
+
+[connection signal="body_entered" from="sweaccess" to="." method="_on_sweaccess_body_entered"]
+[connection signal="body_exited" from="sweaccess" to="." method="_on_sweaccess_body_exited"]
