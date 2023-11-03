@@ -356,4 +356,14 @@ func calcEventsTotalProb():
 	var total_prob = 0
 	for event_key in events:
 		total_prob += events[event_key]["probability"]
+	if num_mechanics == 2:
+		total_prob *= 0.85
+	if total_prob < .01:
+		return 1
+	if total_prob < .02:
+		return 2
+	if total_prob < .03:
+		return 3
+	else:
+		return 4
 	return total_prob

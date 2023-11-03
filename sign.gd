@@ -11,4 +11,7 @@ func _process(delta):
 	pass
 
 func updateNickButton(n, m):
-	$buynick.text = "'Enter' to buy Nick (" + str(n) +"/" + str(m) +")"
+	if n==m:
+		$buynick.text = "You've maxed out on Nicks " + "(" + str(n) +"/" + str(m) +")"
+	else :
+		$buynick.text = "'Enter' to buy Nick (" + str(n) +"/" + str(m) +")"

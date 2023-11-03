@@ -128,98 +128,107 @@ shape = SubResource("CircleShape2D_upjhx")
 [node name="menu" parent="." instance=ExtResource("3_kjdh1")]
 position = Vector2(79, -180)
 
+[node name="ColorRect" parent="menu/shopmenu" index="0"]
+offset_left = 30.0
+offset_top = 4.0
+offset_right = 326.0
+offset_bottom = 239.0
+
 [node name="statsandactions" parent="menu" index="1"]
+visible = false
 position = Vector2(-467, 9)
 
 [node name="ColorRect" parent="menu/statsandactions" index="0"]
-offset_left = 467.254
-offset_top = -107.386
-offset_right = 864.254
-offset_bottom = 307.614
+offset_left = 466.984
+offset_top = -19.3857
+offset_right = 772.984
+offset_bottom = 261.614
 
 [node name="hashrateicon" parent="menu/statsandactions" index="1"]
-position = Vector2(584.758, -47.3859)
+position = Vector2(496.022, 26.5903)
+scale = Vector2(0.597392, 0.597717)
 
 [node name="hashrate" parent="menu/statsandactions" index="2"]
-offset_left = 554.255
-offset_top = -23.386
-offset_right = 630.254
-offset_bottom = 5.61414
+offset_left = 530.006
+offset_top = 6.56226
+offset_right = 606.005
+offset_bottom = 35.5624
 
 [node name="cloudstatusicon" parent="menu/statsandactions" index="3"]
-position = Vector2(716.254, -46.386)
+position = Vector2(640.02, 24.4711)
+scale = Vector2(0.781978, 0.739018)
 
 [node name="clouduptime" parent="menu/statsandactions" index="4"]
-offset_left = 668.254
-offset_top = -21.386
-offset_right = 794.254
-offset_bottom = 18.6141
+offset_left = 662.003
+offset_top = 3.45323
+offset_right = 788.003
+offset_bottom = 43.4533
 
 [node name="hashratevalue" parent="menu/statsandactions" index="5"]
-offset_left = 543.254
-offset_top = 0.614151
-offset_right = 641.254
-offset_bottom = 40.6141
+offset_left = 527.021
+offset_top = 25.5647
+offset_right = 625.021
+offset_bottom = 65.5647
 
 [node name="clouduptimevalue" parent="menu/statsandactions" index="6"]
-offset_left = 681.254
-offset_top = 1.61414
-offset_right = 788.254
-offset_bottom = 41.6141
+offset_left = 672.021
+offset_top = 25.445
+offset_right = 779.021
+offset_bottom = 65.4449
 
 [node name="upgrademinerstext" parent="menu/statsandactions" index="7"]
-offset_left = 533.255
-offset_top = 62.6141
-offset_right = 804.254
-offset_bottom = 94.6141
+offset_left = 489.052
+offset_top = 62.5961
+offset_right = 760.051
+offset_bottom = 94.5961
 
 [node name="upgrademinerstext2" parent="menu/statsandactions" index="8"]
-offset_left = 534.255
-offset_top = 123.614
-offset_right = 805.254
-offset_bottom = 155.614
+offset_left = 492.092
+offset_top = 111.594
+offset_right = 763.091
+offset_bottom = 143.594
 
 [node name="upgrademinerstext3" parent="menu/statsandactions" index="9"]
-offset_left = 535.254
-offset_top = 182.614
-offset_right = 804.254
-offset_bottom = 214.614
+offset_left = 492.134
+offset_top = 161.594
+offset_right = 761.134
+offset_bottom = 193.594
 
 [node name="upgrademinerstext4" parent="menu/statsandactions" index="10"]
-offset_left = 538.254
-offset_top = 244.614
-offset_right = 809.254
-offset_bottom = 276.614
+offset_left = 493.173
+offset_top = 209.593
+offset_right = 764.173
+offset_bottom = 241.593
 
 [node name="upgrademiners" parent="menu/statsandactions" index="11"]
-offset_left = 521.254
-offset_top = 52.6141
-offset_right = 809.254
-offset_bottom = 99.6141
+offset_left = 475.0
+offset_top = 56.0
+offset_right = 759.0
+offset_bottom = 96.0
 
 [node name="maintenance" parent="menu/statsandactions" index="12"]
-offset_left = 521.254
-offset_top = 112.614
-offset_right = 810.254
-offset_bottom = 161.614
+offset_left = 476.0
+offset_top = 105.0
+offset_right = 762.0
+offset_bottom = 146.0
 
 [node name="fix" parent="menu/statsandactions" index="13"]
-offset_left = 522.255
-offset_top = 174.614
-offset_right = 811.254
-offset_bottom = 223.614
+offset_left = 475.0
+offset_top = 154.0
+offset_right = 761.0
+offset_bottom = 198.0
 
 [node name="check" parent="menu/statsandactions" index="14"]
-offset_left = 522.255
-offset_top = 235.614
-offset_right = 811.255
-offset_bottom = 284.614
+offset_left = 478.169
+offset_top = 204.605
+offset_right = 761.169
+offset_bottom = 243.605
 
 [node name="name" parent="menu/statsandactions" index="15"]
-offset_left = 471.254
-offset_top = -97.386
-offset_right = 613.254
-offset_bottom = -57.386
+offset_left = 473.987
+offset_top = -15.3915
+offset_right = 615.987
+offset_bottom = 24.6085
 
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2, 82)

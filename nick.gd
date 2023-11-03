@@ -14,7 +14,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pad_owned = self.get_parent().pad_owned
-	if pad_owned and num_mechanics < 2:
+	if pad_owned:
 		self.visible = true
 	else:
 		self.visible = false
