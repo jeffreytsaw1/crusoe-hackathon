@@ -29,7 +29,7 @@ func _process(delta):
 	$hashratevalue.text = str(hashrate)
 	active_gpus = max(0, self.get_parent().get_parent().active_gpus)
 	$clouduptimevalue.text = str(active_gpus)
-	$name.text = self.get_parent().get_parent().name # TODO i dunno why this is breaking
+#	$name.text = self.get_parent().get_parent().name # TODO i dunno why this is breaking
 
 
 func _on_upgrademiners_pressed():

@@ -20,11 +20,12 @@ const events = {
 	"ssh_failure": {"domain": "cloud", "probability": .001, "multiplier": .35},
 	"lightbits_failure": {"domain": "cloud", "probability": .001, "multiplier": .4},
 	"vm_died": {"domain": "cloud", "probability": .0075, "multiplier": .25},
-	"on_diesel": {"domain": "check_cloud", "probability": .0003, "multiplier": 1},
-	"hvac_failure": {"domain": "check_cloud", "probability": .0004, "multiplier": 1}
+	"on_diesel": {"domain": "check_cloud", "probability": .0002, "multiplier": 1},
+	"hvac_failure": {"domain": "check_cloud", "probability": .0001, "multiplier": 1}
 }
 
 # defaults
+var base_hashrate_capacity = 0
 var hashrate_capacity = 0
 var gpu_capacity = 0
 # based on upgrade state
@@ -127,7 +128,7 @@ func process_update_events():
 	# upgrade event counter
 	event_counter -= 1
 	if event_counter == 0:
-		event_counter = 10
+		event_counter = 20
 	else :
 		return
 	# process all possible events
@@ -171,9 +172,16 @@ func action_attempt_perform_upgrade():
 	
 	Global.money -= get_next_upgrade_total_cost()
 	crypto_upgrades[i]["state"] = true
-	hashrate_capacity *= crypto_upgrades[i]["multiplier"]
+	base_hashrate_capacity *= crypto_upgrades[i]["multiplier"]
+	updateHashrateCapacity()
 	hashrate = hashrate_capacity
 	return true
+	
+func updateHashrateCapacity():
+	if Global.num_swe < 2:
+		hashrate_capacity = base_hashrate_capacity * .9
+	else:
+		hashrate_capacity = base_hashrate_capacity * (Global.num_swe-1)*1.01
 
 func get_next_crypto_upgrade_index():
 	for i in len(crypto_upgrades):
@@ -203,7 +211,8 @@ func notImplemented():
 func boughtPad():
 	num_crypto_boxes = $menu.get_node("shopmenu").number_of_crypto_boxes
 	num_cloud_boxes = $menu.get_node("shopmenu").number_of_cloud_boxes
-	hashrate_capacity = num_crypto_boxes * hashrate_per_box
+	base_hashrate_capacity = num_crypto_boxes * hashrate_per_box
+	updateHashrateCapacity()
 	hashrate = hashrate_capacity
 	gpu_capacity = num_cloud_boxes * active_gpus_per_box
 	active_gpus = gpu_capacity
