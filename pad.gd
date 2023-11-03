@@ -63,7 +63,6 @@ func action_start_fix():
 	if num_mechanics >= 1:
 		cloud_fix_time *= 0.85
 		crypto_fix_time *= 0.85
-	print("fix time: ", crypto_fix_time + cloud_fix_time)
 	end_maintenance_time = Time.get_unix_time_from_system() + crypto_fix_time + cloud_fix_time
 	
 func process_end_fix():
@@ -94,6 +93,10 @@ func action_collect_bitcoin():
 
 func action_check():
 	last_check = Time.get_unix_time_from_system()
+	for event in events_occurred:
+		if event["domain"] == "check_cloud":
+			events_occurred.erase(event)
+			
 	reset_next_time_of_failure()
 
 func reset_next_time_of_failure():
@@ -252,6 +255,7 @@ func _ready():
 	
 	
 func _process(delta):
+	$padart.play("pad")
 	pad_owned = $menu.pad_owned
 	num_mechanics = $nick.num_mechanics 
 	
@@ -320,12 +324,12 @@ func sendAdvancedStatsToChild():
 
 func calcHashrateUtility():
 	if hashrate_capacity ==0:
-		return 0
+		return 1
 	return snapped(hashrate/hashrate_capacity, .01)
 	
 func calcGPUUtility():
 	if gpu_capacity ==0:
-		return 0
+		return 1
 	return snapped(active_gpus/gpu_capacity, .01)
 	
 func mostRecentEvent():
