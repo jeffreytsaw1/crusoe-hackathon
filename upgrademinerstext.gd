@@ -8,5 +8,7 @@ func _process(_delta):
 	
 func updateText():
 	# BBCode string with an image and text
-	var bbcode_text = "[img]res://cloud_up.png[/img] [color=#000000] Hash " + str(Global.total_hashrate) +" [/color]"
-	text = bbcode_text
+	if self.get_parent() != null:
+		text = "Upgrade Miners " + str(self.get_parent().upgrade_miners_cost)
+	else:
+		print("upgrade cost")

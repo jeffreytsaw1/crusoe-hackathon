@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
-[ext_resource type="PackedScene" path="res://menu.tscn" id="3_kjdh1"]
+[ext_resource type="PackedScene" uid="uid://w3605uo10aq6" path="res://menu.tscn" id="3_kjdh1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
 atlas = ExtResource("2_k5cmt")

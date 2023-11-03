@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-const upgrade_miners_cost = 100
+var upgrade_miners_cost = 100
 const maintenance_cost = 100
 const fix_cost = 100
 
@@ -27,7 +27,7 @@ func _process(delta):
 	hashrate = self.get_parent().get_parent().hashrate
 	$hashratevalue.text = str(hashrate)
 	$clouduptimevalue.text = str(active_gpus)
-	$name.text = self.get_parent().get_parent().name
+#	$name.text = self.get_parent().get_parent().name # TODO i dunno why this is breaking
 
 
 func _on_upgrademiners_pressed():

@@ -8,11 +8,12 @@ var timer
 const probability_bitcoin_per_TH = .0001
 
 const events = {
-	"snow_storm": {"domain": "pad", "probability": .1, "multiplier": .25},
+	"snow_storm": {"domain": "pad", "probability": .1, "multiplier": .34},
+	"well_outage": {"domain": "pad", "probability": .2, "multiplier": .2},
 	"internet_outage": {"domain": "pad", "probability": .1, "multiplier": 0},
 	"box_on_fire": {"domain": "box", "probability": .01, "multiplier": 0},
 	"broken_louvers": {"domain": "box", "probability": .01, "multiplier": .75},
-	"miner_disconnect": {"domain": "crypto", "probability": .1, "multiplier": .5},
+	"rack_disconnected": {"domain": "crypto", "probability": .1, "multiplier": .8},
 	"ssh_failure": {"domain": "cloud", "probability": .1, "multiplier": .35},
 	"lightbits_failure": {"domain": "cloud", "probability": .1, "multiplier": .4},
 	"vm_died": {"domain": "cloud", "probability": .075, "multiplier": .25},
@@ -90,11 +91,11 @@ func pad_effect(multiplier):
 func box_effect(multiplier, box_type):
 	match box_type:
 		"crypto":
-			hashrate = hashrate - (multiplier / num_crypto_boxes)
+			hashrate = hashrate - hashrate * ((1.0-multiplier) / num_crypto_boxes)
 		"cloud":
-			hashrate = hashrate - (multiplier / num_cloud_boxes)
+			hashrate = hashrate - hashrate * ((1.0-multiplier) / num_cloud_boxes)
 		"box":
-			hashrate = hashrate - (multiplier / (num_crypto_boxes + num_crypto_boxes))
+			hashrate = hashrate - hashrate * ((1.0-multiplier) / (num_crypto_boxes + num_crypto_boxes))
 			
 func delayed_cloud_effect():
 	if next_time_of_failure == 0:
@@ -124,9 +125,37 @@ func process_update_events():
 					box_effect(events[event_key]["multiplier"], events[event_key]["domain"])	
 
 # possible upgrades
-var crypto_upgrades = [{"name": "stock", "state": true, "multiplier": 1, "cost_per_box":0},
-	{"name": "jPros", "state": true, "multiplier": 1.07, "cost_per_box": 100},
-	{"name": "braiins", "state": true, "multiplier": 1.08, "cost_per_box": 75}]
+var crypto_upgrades = [
+	{"name": "stock", "state": true, "multiplier": 1, "cost_per_box":0},
+	{"name": "jPros", "state": false, "multiplier": 1.07, "cost_per_box": 97},
+	{"name": "XPs", "state": false, "multiplier": 1.07, "cost_per_box": 95},
+	{"name": "braiins", "state": false, "multiplier": 1.08, "cost_per_box": 75}
+]
+
+func action_attempt_perform_upgrade():
+	var i = get_next_crypto_upgrade_index()
+	if i == -1:
+		return false
+		
+	if Global.money - get_next_upgrade_total_cost() < 0:
+		return false
+	
+	Global.money -= get_next_upgrade_total_cost()
+	crypto_upgrades[i]["state"] = true
+	hashrate_capacity *= crypto_upgrades[i]["multiplier"]
+	return true
+
+func get_next_crypto_upgrade_index():
+	for i in len(crypto_upgrades):
+		if crypto_upgrades[i]["state"] == false:
+			return i
+	return -1
+	
+func get_next_upgrade_total_cost():
+	var i = get_next_crypto_upgrade_index()
+	if i == -1:
+		return 0
+	return crypto_upgrades[i]["cost_per_box"]*num_crypto_boxes
 
 # We aren't really using this right now
 const base_power_efficiency = 40 #J/TH
@@ -159,7 +188,7 @@ func _on_timer_timeout():
 
 func _ready():
 	$menu.unrender()
-	$menu.get_node("statsandactions").upgrade_action_taken.connect(action_start_fix)
+	$menu.get_node("statsandactions").upgrade_action_taken.connect(action_attempt_perform_upgrade)
 	$menu.get_node("statsandactions").maintenance_action_taken.connect(notImplemented)
 	$menu.get_node("statsandactions").fix_action_taken.connect(action_start_fix)
 	$menu.get_node("statsandactions").check_taken.connect(notImplemented)
@@ -179,6 +208,8 @@ func _process(delta):
 	else:
 		$bitcoin.visible = false
 	process_mine_bitcoin()
+	
+	$menu.get_node("statsandactions").upgrade_miners_cost = get_next_upgrade_total_cost()
 
 func _on_area_2d_body_entered(body):
 	if body.has_method("player_pad_method"):

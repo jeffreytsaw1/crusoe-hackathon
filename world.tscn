@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=17 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://moneyLabel.gd" id="9_wnhuu"]
 [ext_resource type="Script" path="res://StatTotalHashrate.gd" id="10_3h4jj"]
 [ext_resource type="Script" path="res://StatCloudBoxes.gd" id="11_t67vh"]
+[ext_resource type="Script" path="res://StatTotalHashrateCapacity.gd" id="12_srdhx"]
+[ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -126,16 +128,16 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -186.0
+offset_left = -236.0
 offset_right = 1.0
-offset_bottom = 53.0
+offset_bottom = 79.0
 grow_horizontal = 0
 
 [node name="GlobalStats" type="VBoxContainer" parent="CanvasLayer2/Control"]
 layout_mode = 0
 offset_left = 1.0
-offset_right = 126.0
-offset_bottom = 77.0
+offset_right = 224.0
+offset_bottom = 106.0
 
 [node name="StatTotalHashrate" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
 layout_mode = 2
@@ -143,6 +145,13 @@ bbcode_enabled = true
 text = "Hashrate: 0"
 fit_content = true
 script = ExtResource("10_3h4jj")
+
+[node name="StatTotalHashrateCapacity" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Hash Capacity: 0"
+fit_content = true
+script = ExtResource("12_srdhx")
 
 [node name="StatCloudBoxes" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
 layout_mode = 2
@@ -156,3 +165,4 @@ layout_mode = 2
 bbcode_enabled = true
 text = "Crypto Boxes: 0"
 fit_content = true
+script = ExtResource("13_wqrwc")
