@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bdsgia7tid3tx"]
+[gd_scene load_steps=23 format=3 uid="uid://bhxgsiwfychjx"]
 
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://AdvancedStats.gd" id="4_r3ous"]
 [ext_resource type="Script" path="res://AdvancedStatsContainer.gd" id="5_j7rbc"]
 [ext_resource type="PackedScene" uid="uid://brfuif1yjw7du" path="res://nick.tscn" id="6_ilglb"]
-[ext_resource type="Texture2D" path="res://nick.png" id="8_4jvwd"]
+[ext_resource type="Texture2D" uid="uid://ckajkhl4g65hb" path="res://nick.png" id="8_4jvwd"]
 [ext_resource type="Texture2D" uid="uid://b052a6jfvj6c2" path="res://fire.png" id="9_wbjl2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
@@ -57,10 +57,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hv74"]
-size = Vector2(88.75, 63.125)
+size = Vector2(31.5, 44.2499)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_upjhx"]
-radius = 75.0067
+radius = 51.0098
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpsv2"]
 atlas = ExtResource("2_k5cmt")
@@ -115,14 +115,14 @@ sprite_frames = SubResource("SpriteFrames_g0jk3")
 animation = &"pad"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(43.625, 37.4375)
+position = Vector2(49.25, 31.875)
 shape = SubResource("RectangleShape2D_2hv74")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(49.5, 18.7501)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-10.5, 9.24991)
+position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_upjhx")
 
 [node name="menu" parent="." instance=ExtResource("3_kjdh1")]
@@ -231,7 +231,7 @@ offset_right = 615.987
 offset_bottom = 24.6085
 
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, 82)
+position = Vector2(20, 47)
 scale = Vector2(1.9375, 1.75)
 sprite_frames = SubResource("SpriteFrames_ba652")
 

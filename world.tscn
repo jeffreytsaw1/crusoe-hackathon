@@ -168,11 +168,29 @@ position = Vector2(0, 4)
 script = ExtResource("3_skmhl")
 tilemapBackground = NodePath("../../background")
 
+[node name="Kai" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(-454, -753)
+
+[node name="Bock" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(1634, -1045)
+
+[node name="CDP1" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(1974, -712)
+
+[node name="CDP2" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(2434, -714)
+
 [node name="BrownBear" parent="." instance=ExtResource("3_o7ej4")]
 position = Vector2(235, 272)
 
 [node name="Altuve" parent="." instance=ExtResource("3_o7ej4")]
 position = Vector2(723, 272)
+
+[node name="Surprise" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(123, 862)
+
+[node name="Snapper" parent="." instance=ExtResource("3_o7ej4")]
+position = Vector2(1744, 205)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 0

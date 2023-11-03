@@ -11,7 +11,7 @@ var event_counter = 20 # every 20 game tickets run events
 	
 const probability_bitcoin_per_TH = .0001
 
-const events = {
+var events = {
 	"snow_storm": {"domain": "pad", "probability": .00075, "multiplier": .85},
 	"internet_outage": {"domain": "pad", "probability": .0005, "multiplier": 0.5},
 	"box_on_fire": {"domain": "box", "probability": .00001, "multiplier": 0},
@@ -24,6 +24,16 @@ const events = {
 	"on_diesel": {"domain": "check_cloud", "probability": .009, "multiplier": 1},
 	"hvac_failure": {"domain": "check_cloud", "probability": .0075, "multiplier": 1}
 }
+
+func randomlyPermute(num, factor):
+	var noise = num/factor
+	var rand_num=randf_range(-noise,noise)
+	return num +rand_num
+	
+
+func randomizeProbabilities():
+	for key in events:
+		events[key]["probability"] = randomlyPermute(events[key]["probability"], 20)
 
 # defaults
 var base_hashrate_capacity = 0
@@ -68,8 +78,6 @@ func action_start_fix():
 func process_end_fix():
 	if end_maintenance_time == 0:
 		return
-	
-	next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
 		
 	if Time.get_unix_time_from_system() > end_maintenance_time:
 		end_fix()
@@ -100,10 +108,14 @@ func reset_next_time_of_failure():
 
 func process_induce_cloud_failure_if_needed():
 	if next_time_of_failure == 0:
-		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
+		return
+	# if we have passed some non zero threshold
 	if next_time_of_failure < Time.get_unix_time_from_system():
 		active_gpus = 0
+		print("cloud fail: ", cloud_failure_reason)
 		events_occurred.append(cloud_failure_reason)
+		cloud_failure_reason = ""
+		reset_next_time_of_failure()
 
 func pad_effect(multiplier):
 	hashrate = hashrate * multiplier
@@ -154,30 +166,32 @@ func process_update_events():
 			var event_occurred = randf() < probability
 			if event_occurred:
 				print("event:", event_key)
-				if events[event_key]["domain"] != "check_cloud":
-					events_occurred.append(event_key)
 				if events[event_key]["domain"] == "pad":
 					pad_effect(events[event_key]["multiplier"])
+					events_occurred.append(event_key)
 				elif events[event_key]["domain"] == "check_cloud":
 					cloud_failure_reason = event_key
 					delayed_cloud_effect()
-				else:
+				else: # handles both "box", "cloud", "crypto" domains
+					events_occurred.append(event_key)
 					box_effect(events[event_key]["multiplier"], events[event_key]["domain"])	
 
 # possible upgrades
 var crypto_upgrades = [
 	{"name": "stock", "state": true, "multiplier": 1, "cost_per_box":0},
-	{"name": "jPros", "state": false, "multiplier": 1.07, "cost_per_box": 80},
-	{"name": "XPs", "state": false, "multiplier": 1.07, "cost_per_box": 70},
-	{"name": "braiins", "state": false, "multiplier": 1.05, "cost_per_box": 50}
+	{"name": "jPros", "state": false, "multiplier": 1.07, "cost_per_box": 30},
+	{"name": "XPs", "state": false, "multiplier": 1.07, "cost_per_box": 15},
+	{"name": "braiins", "state": false, "multiplier": 1.05, "cost_per_box": 20}
 ]
 
 func action_attempt_perform_upgrade():
 	var i = get_next_crypto_upgrade_index()
 	if i == -1:
+		print("failed to upgrade: fully upgraded")
 		return false
 		
 	if Global.money - get_next_upgrade_total_cost() < 0:
+		print("failed to upgrade: not enough money")
 		return false
 	
 	Global.money -= get_next_upgrade_total_cost()
@@ -226,8 +240,6 @@ func boughtPad():
 	hashrate = hashrate_capacity
 	gpu_capacity = num_cloud_boxes * active_gpus_per_box
 	active_gpus = gpu_capacity
-	if gpu_capacity > 0:
-		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
 		
 	
 	
@@ -240,6 +252,7 @@ func _on_timer_timeout():
 # IMPORTANT GAME FUNCTIONS BUILT IN
 
 func _ready():
+	randomizeProbabilities()
 	$menu.unrender()
 	$menu.get_node("statsandactions").upgrade_action_taken.connect(action_attempt_perform_upgrade)
 	$menu.get_node("statsandactions").maintenance_action_taken.connect(notImplemented)
@@ -250,7 +263,7 @@ func _ready():
 	set_process_input(true)
 	$fire.visible = false
 	
-	
+
 	
 	
 	

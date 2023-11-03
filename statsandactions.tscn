@@ -123,7 +123,8 @@ offset_left = 72.3452
 offset_top = 354.999
 offset_right = 343.345
 offset_bottom = 386.999
-text = "Check    			  						   100"
+text = "Check    			  						   		0"
+scroll_active = false
 
 [node name="upgrademiners" type="Button" parent="."]
 offset_left = 55.3452

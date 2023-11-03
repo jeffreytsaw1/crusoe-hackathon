@@ -13,8 +13,16 @@ var base_price_cloud = 75
 signal buy_button_pressed
 
 var price = 100 # adjust based on thing
+
+func randomlyPermute(num, factor):
+	var noise = num/factor
+	var rand_num=randf_range(-noise,noise)
+	return num +rand_num
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	base_price_cloud = int(randomlyPermute(base_price_cloud, 10))
+	base_price_crypto = int(randomlyPermute(base_price_crypto, 15))
 	pad_name = self.get_parent().get_parent().name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
