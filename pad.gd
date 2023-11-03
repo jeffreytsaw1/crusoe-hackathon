@@ -6,21 +6,22 @@ var hashrate_per_box = 10
 var timer
 var active_gpus_per_box = 10
 
-
+var event_counter = 20 # every 20 game tickets run events
 	
 const probability_bitcoin_per_TH = .0001
 
 const events = {
-	"snow_storm": {"domain": "pad", "probability": .1, "multiplier": .85},
-	"internet_outage": {"domain": "pad", "probability": .05, "multiplier": 0},
-	"box_on_fire": {"domain": "box", "probability": .05, "multiplier": 0},
-	"broken_louvers": {"domain": "box", "probability": .1, "multiplier": .75},
-	"miner_disconnect": {"domain": "crypto", "probability": .1, "multiplier": .5},
-	"ssh_failure": {"domain": "cloud", "probability": .1, "multiplier": .35},
-	"lightbits_failure": {"domain": "cloud", "probability": .1, "multiplier": .4},
-	"vm_died": {"domain": "cloud", "probability": .075, "multiplier": .25},
-	"on_diesel": {"domain": "check_cloud", "probability": .5, "multiplier": 1},
-	"hvac_failure": {"domain": "check_cloud", "probability": .5, "multiplier": 1}
+	"snow_storm": {"domain": "pad", "probability": .00075, "multiplier": .85},
+	"internet_outage": {"domain": "pad", "probability": .0005, "multiplier": 0.5},
+	"box_on_fire": {"domain": "box", "probability": .00001, "multiplier": 0},
+	"broken_louvers": {"domain": "box", "probability": .0015, "multiplier": .9},
+	"miner_disconnect": {"domain": "crypto", "probability": .001, "multiplier": .8},
+	"psu_failure": {"domain": "crypto", "probability": .005, "multiplier": .9},
+	"ssh_failure": {"domain": "cloud", "probability": .001, "multiplier": .35},
+	"lightbits_failure": {"domain": "cloud", "probability": .001, "multiplier": .4},
+	"vm_died": {"domain": "cloud", "probability": .0075, "multiplier": .25},
+	"on_diesel": {"domain": "check_cloud", "probability": .0003, "multiplier": 1},
+	"hvac_failure": {"domain": "check_cloud", "probability": .0004, "multiplier": 1}
 }
 
 # defaults
@@ -56,7 +57,7 @@ func action_start_fix():
 	
 	var cloud_fix_time = 1.7*pow((gpu_capacity-active_gpus)/20,3)
 	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/10,2)
-	print(crypto_fix_time + cloud_fix_time)
+	print("fix time: ", crypto_fix_time + cloud_fix_time)
 	end_maintenance_time = Time.get_unix_time_from_system() + crypto_fix_time + cloud_fix_time
 	
 func process_end_fix():
@@ -120,6 +121,13 @@ func delayed_cloud_effect():
 		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment; # 40s from now
 
 func process_update_events():
+	# upgrade event counter
+	event_counter -= 1
+	if event_counter == 0:
+		event_counter = 10
+	else :
+		return
+	# process all possible events
 	for event_key in events:
 		# process per domain type n times
 		var iterations = 1
@@ -145,9 +153,9 @@ func process_update_events():
 # possible upgrades
 var crypto_upgrades = [
 	{"name": "stock", "state": true, "multiplier": 1, "cost_per_box":0},
-	{"name": "jPros", "state": false, "multiplier": 1.07, "cost_per_box": 97},
-	{"name": "XPs", "state": false, "multiplier": 1.07, "cost_per_box": 95},
-	{"name": "braiins", "state": false, "multiplier": 1.08, "cost_per_box": 75}
+	{"name": "jPros", "state": false, "multiplier": 1.07, "cost_per_box": 80},
+	{"name": "XPs", "state": false, "multiplier": 1.07, "cost_per_box": 70},
+	{"name": "braiins", "state": false, "multiplier": 1.05, "cost_per_box": 50}
 ]
 
 func action_attempt_perform_upgrade():

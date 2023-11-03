@@ -9,6 +9,6 @@ func _process(_delta):
 func updateText():
 	# BBCode string with an image and text
 	if self.get_parent() != null:
-		text = "Upgrade Miners " + str(self.get_parent().upgrade_miners_cost)
+		text = "Upgrade Miners 						" + str(self.get_parent().upgrade_miners_cost)
 	else:
 		print("upgrade cost")
