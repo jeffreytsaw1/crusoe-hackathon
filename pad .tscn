@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bhxgsiwfychjx"]
+[gd_scene load_steps=23 format=3 uid="uid://bdsgia7tid3tx"]
 
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
@@ -7,7 +7,8 @@
 [ext_resource type="Script" path="res://AdvancedStats.gd" id="4_r3ous"]
 [ext_resource type="Script" path="res://AdvancedStatsContainer.gd" id="5_j7rbc"]
 [ext_resource type="PackedScene" uid="uid://brfuif1yjw7du" path="res://nick.tscn" id="6_ilglb"]
-[ext_resource type="Texture2D" uid="uid://ckajkhl4g65hb" path="res://nick.png" id="8_4jvwd"]
+[ext_resource type="Texture2D" path="res://nick.png" id="8_4jvwd"]
+[ext_resource type="Texture2D" uid="uid://b052a6jfvj6c2" path="res://fire.png" id="9_wbjl2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
 atlas = ExtResource("2_k5cmt")
@@ -56,10 +57,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hv74"]
-size = Vector2(31.5, 44.2499)
+size = Vector2(88.75, 63.125)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_upjhx"]
-radius = 51.0098
+radius = 75.0067
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpsv2"]
 atlas = ExtResource("2_k5cmt")
@@ -89,6 +90,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yi7ve"]
+atlas = ExtResource("9_wbjl2")
+region = Rect2(125, 142, 125, 142)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7qki4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yi7ve")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
 [node name="pad" type="StaticBody2D"]
 script = ExtResource("1_ya8v6")
 
@@ -99,14 +115,14 @@ sprite_frames = SubResource("SpriteFrames_g0jk3")
 animation = &"pad"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(49.25, 31.875)
+position = Vector2(43.625, 37.4375)
 shape = SubResource("RectangleShape2D_2hv74")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(49.5, 18.7501)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, 2)
+position = Vector2(-10.5, 9.24991)
 shape = SubResource("CircleShape2D_upjhx")
 
 [node name="menu" parent="." instance=ExtResource("3_kjdh1")]
@@ -206,7 +222,7 @@ offset_right = 613.254
 offset_bottom = -57.386
 
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
-position = Vector2(20, 47)
+position = Vector2(-2, 82)
 scale = Vector2(1.9375, 1.75)
 sprite_frames = SubResource("SpriteFrames_ba652")
 
@@ -268,8 +284,11 @@ position = Vector2(78, 86)
 scale = Vector2(0.328125, 0.34375)
 sprite_frames = SubResource("SpriteFrames_tma4c")
 
-[node name="CollisionShape2D" parent="nick" index="1"]
-position = Vector2(78, 85)
+[node name="fire" type="AnimatedSprite2D" parent="."]
+position = Vector2(37, 33)
+scale = Vector2(0.8645, 0.948944)
+sprite_frames = SubResource("SpriteFrames_7qki4")
+animation = &"new_animation"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

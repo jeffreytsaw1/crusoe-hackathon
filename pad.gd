@@ -103,7 +103,7 @@ func process_induce_cloud_failure_if_needed():
 		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
 	if next_time_of_failure < Time.get_unix_time_from_system():
 		active_gpus = 0
-	events_occurred.append(cloud_failure_reason)
+		events_occurred.append(cloud_failure_reason)
 
 func pad_effect(multiplier):
 	hashrate = hashrate * multiplier
@@ -248,6 +248,7 @@ func _ready():
 	$menu.get_node("shopmenu").buy_button_pressed.connect(boughtPad)
 	$AdvancedStats.visible = false
 	set_process_input(true)
+	$fire.visible = false
 	
 	
 	
@@ -268,6 +269,11 @@ func _process(delta):
 		process_cloud_revenue()
 		process_end_fix()
 		_on_timer_timeout()
+		if len(events_occurred) > 0 and pad_owned:
+			print(events_occurred)
+			$fire.visible = true
+		else:
+			$fire.visible = false
 		$menu.get_node("statsandactions").upgrade_miners_cost = get_next_upgrade_total_cost()
 		
 		var next_index = get_next_crypto_upgrade_index()
