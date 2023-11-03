@@ -1,12 +1,11 @@
 extends StaticBody2D
 
 const min_money = 1000
-var ipoed = false
 var failed_ipo = false
 
 func attempt_ipo():
 	if Global.money >= min_money:
-		ipoed = true
+		Global.IPO = true
 	else:
 		failed_ipo = true
 		$AttemptIPOControl.visible = false
@@ -23,13 +22,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if ipoed:
+	if Global.IPO:
 		$AttemptIPOControl.visible = false
 		$WinLabel.visible = true
 	pass
 
 func _on_area_2d_body_entered(body):
-	if !ipoed:
+	if !Global.IPO:
 		$AttemptIPOControl.visible = true
 
 

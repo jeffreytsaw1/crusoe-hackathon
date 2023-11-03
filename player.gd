@@ -4,6 +4,8 @@ const speed = 500
 
 
 func _physics_process(delta):
+	if Global.IPO:
+		return
 	if Input.is_action_pressed("ui_right"):
 		$AnimatedSprite2D.play("sidewalk")
 		$AnimatedSprite2D.flip_h = true

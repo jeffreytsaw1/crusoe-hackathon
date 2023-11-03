@@ -20,3 +20,5 @@ var bitcoin_price = 85
 
 var num_pms = 0
 var documents = 0
+
+var IPO = false
