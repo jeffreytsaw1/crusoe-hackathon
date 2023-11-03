@@ -5,6 +5,7 @@ var interactable_body = null
 var hashrate_per_box = 10
 var timer
 var active_gpus_per_box = 10
+var num_mechanics = 0
 
 var event_counter = 20 # every 20 game tickets run events
 	
@@ -59,6 +60,9 @@ func action_start_fix():
 	
 	var cloud_fix_time = 1.7*pow((gpu_capacity-active_gpus)/20,3)
 	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/10,2)
+	if num_mechanics >= 1:
+		cloud_fix_time *= 0.85
+		crypto_fix_time *= 0.85
 	print("fix time: ", crypto_fix_time + cloud_fix_time)
 	end_maintenance_time = Time.get_unix_time_from_system() + crypto_fix_time + cloud_fix_time
 	
@@ -142,8 +146,12 @@ func process_update_events():
 		if events[event_key]["domain"] == "box":
 			iterations = num_crypto_boxes + num_cloud_boxes
 		# run probabilities
+		
 		for i in iterations:
-			var event_occurred = randf() < events[event_key]["probability"]
+			var probability = events[event_key]["probability"]
+			if num_mechanics == 2:
+				probability *= 0.85
+			var event_occurred = randf() < probability
 			events_occurred.append(event_key)
 			if event_occurred:
 				if events[event_key]["domain"] == "pad":
@@ -245,6 +253,8 @@ func _ready():
 	
 func _process(delta):
 	pad_owned = $menu.pad_owned
+	num_mechanics = $nick.num_mechanics 
+	
 	if bitcoins > 0:
 		$bitcoin.visible = true
 	else:

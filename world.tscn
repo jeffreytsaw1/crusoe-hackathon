@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
 [ext_resource type="PackedScene" uid="uid://6upxv8n0ij1s" path="res://player.tscn" id="2_o4541"]
-[ext_resource type="PackedScene" uid="uid://bcsejy4qdqso6" path="res://pad .tscn" id="3_o7ej4"]
+[ext_resource type="PackedScene" uid="uid://bhxgsiwfychjx" path="res://pad .tscn" id="3_o7ej4"]
 [ext_resource type="Script" path="res://playerCamera.gd" id="3_skmhl"]
 [ext_resource type="Script" path="res://inventory.gd" id="5_0lesq"]
 [ext_resource type="Script" path="res://sweLabel.gd" id="8_bl08m"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://StatTotalGPUs.gd" id="13_odikx"]
 [ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
 [ext_resource type="PackedScene" uid="uid://0v02ybouujmo" path="res://swehiring.tscn" id="14_t1c03"]
-[ext_resource type="PackedScene" path="res://allswes.tscn" id="17_p0q30"]
+[ext_resource type="PackedScene" uid="uid://7lagn2fuoey1" path="res://allswes.tscn" id="17_p0q30"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")

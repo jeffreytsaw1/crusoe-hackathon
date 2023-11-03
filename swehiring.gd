@@ -20,12 +20,12 @@ func _input(event):
 			Global.money -= swe_cost
 
 
-func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+func _on_area_2d_body_entered(body):
 	if body.has_method("player_pad_method"):
 		$sign.visible = true
 		interactable_body = body
 
 
-func _on_area_2d_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+func _on_area_2d_body_exited(body):
 	if body.has_method("player_pad_method"):
 		interactable_body = null

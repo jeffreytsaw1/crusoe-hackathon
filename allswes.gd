@@ -9,7 +9,6 @@ func _ready():
 	gameTick = Time.get_unix_time_from_system() + 1
 	var swes = 0
 	for child in $swecontainer.get_children():
-		print(child)
 		if swes < Global.num_swe:
 			child.visible = true
 		child.visible = false

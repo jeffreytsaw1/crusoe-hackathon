@@ -104,5 +104,5 @@ position = Vector2(151.5, 41)
 scale = Vector2(1.6875, 1.5)
 sprite_frames = SubResource("SpriteFrames_mkxjx")
 
-[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
-[connection signal="body_shape_exited" from="Area2D" to="." method="_on_area_2d_body_shape_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

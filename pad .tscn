@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcsejy4qdqso6"]
+[gd_scene load_steps=14 format=3 uid="uid://bhxgsiwfychjx"]
 
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
 [ext_resource type="PackedScene" uid="uid://w3605uo10aq6" path="res://menu.tscn" id="3_kjdh1"]
 [ext_resource type="Script" path="res://AdvancedStats.gd" id="4_r3ous"]
 [ext_resource type="Script" path="res://AdvancedStatsContainer.gd" id="5_j7rbc"]
+[ext_resource type="PackedScene" uid="uid://brfuif1yjw7du" path="res://nick.tscn" id="6_ilglb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
 atlas = ExtResource("2_k5cmt")
@@ -27,7 +28,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hv74"]
-size = Vector2(33, 26)
+size = Vector2(31.5, 44.2499)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_upjhx"]
 radius = 51.0098
@@ -59,7 +60,7 @@ sprite_frames = SubResource("SpriteFrames_g0jk3")
 animation = &"new_animation"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(50, 22.7501)
+position = Vector2(49.25, 31.875)
 shape = SubResource("RectangleShape2D_2hv74")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -76,43 +77,94 @@ position = Vector2(79, -180)
 position = Vector2(-467, 9)
 
 [node name="ColorRect" parent="menu/statsandactions" index="0"]
-metadata/_edit_use_anchors_ = true
+offset_left = 467.254
+offset_top = -107.386
+offset_right = 864.254
+offset_bottom = 307.614
+
+[node name="hashrateicon" parent="menu/statsandactions" index="1"]
+position = Vector2(584.758, -47.3859)
 
 [node name="hashrate" parent="menu/statsandactions" index="2"]
-metadata/_edit_use_anchors_ = true
+offset_left = 554.255
+offset_top = -23.386
+offset_right = 630.254
+offset_bottom = 5.61414
+
+[node name="cloudstatusicon" parent="menu/statsandactions" index="3"]
+position = Vector2(716.254, -46.386)
 
 [node name="clouduptime" parent="menu/statsandactions" index="4"]
-metadata/_edit_use_anchors_ = true
+offset_left = 668.254
+offset_top = -21.386
+offset_right = 794.254
+offset_bottom = 18.6141
 
 [node name="hashratevalue" parent="menu/statsandactions" index="5"]
-metadata/_edit_use_anchors_ = true
+offset_left = 543.254
+offset_top = 0.614151
+offset_right = 641.254
+offset_bottom = 40.6141
 
 [node name="clouduptimevalue" parent="menu/statsandactions" index="6"]
-metadata/_edit_use_anchors_ = true
+offset_left = 681.254
+offset_top = 1.61414
+offset_right = 788.254
+offset_bottom = 41.6141
 
 [node name="upgrademinerstext" parent="menu/statsandactions" index="7"]
-metadata/_edit_use_anchors_ = true
+offset_left = 533.255
+offset_top = 62.6141
+offset_right = 804.254
+offset_bottom = 94.6141
 
 [node name="upgrademinerstext2" parent="menu/statsandactions" index="8"]
-metadata/_edit_use_anchors_ = true
+offset_left = 534.255
+offset_top = 123.614
+offset_right = 805.254
+offset_bottom = 155.614
 
 [node name="upgrademinerstext3" parent="menu/statsandactions" index="9"]
-metadata/_edit_use_anchors_ = true
+offset_left = 535.254
+offset_top = 182.614
+offset_right = 804.254
+offset_bottom = 214.614
 
 [node name="upgrademinerstext4" parent="menu/statsandactions" index="10"]
-metadata/_edit_use_anchors_ = true
+offset_left = 538.254
+offset_top = 244.614
+offset_right = 809.254
+offset_bottom = 276.614
 
 [node name="upgrademiners" parent="menu/statsandactions" index="11"]
-metadata/_edit_use_anchors_ = true
+offset_left = 521.254
+offset_top = 52.6141
+offset_right = 809.254
+offset_bottom = 99.6141
 
 [node name="maintenance" parent="menu/statsandactions" index="12"]
-metadata/_edit_use_anchors_ = true
+offset_left = 521.254
+offset_top = 112.614
+offset_right = 810.254
+offset_bottom = 161.614
 
 [node name="fix" parent="menu/statsandactions" index="13"]
-metadata/_edit_use_anchors_ = true
+offset_left = 522.255
+offset_top = 174.614
+offset_right = 811.254
+offset_bottom = 223.614
 
 [node name="check" parent="menu/statsandactions" index="14"]
-metadata/_edit_use_anchors_ = true
+offset_left = 522.255
+offset_top = 235.614
+offset_right = 811.255
+offset_bottom = 284.614
+
+[node name="name" parent="menu/statsandactions" index="15"]
+offset_left = 471.254
+offset_top = -97.386
+offset_right = 613.254
+offset_bottom = -57.386
 
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
 position = Vector2(20, 47)
@@ -168,6 +220,9 @@ text = "Fix in: 0s"
 [node name="TotalEventProb" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
 layout_mode = 2
 text = "EV Loss: 0"
+
+[node name="nick" parent="." instance=ExtResource("6_ilglb")]
+position = Vector2(-27, 70)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
