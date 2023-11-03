@@ -1,9 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=31 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
 [ext_resource type="PackedScene" uid="uid://6upxv8n0ij1s" path="res://player.tscn" id="2_o4541"]
-[ext_resource type="PackedScene" uid="uid://bdsgia7tid3tx" path="res://pad .tscn" id="3_o7ej4"]
+[ext_resource type="PackedScene" uid="uid://bhxgsiwfychjx" path="res://pad .tscn" id="3_o7ej4"]
 [ext_resource type="Script" path="res://playerCamera.gd" id="3_skmhl"]
 [ext_resource type="Script" path="res://inventory.gd" id="5_0lesq"]
 [ext_resource type="Script" path="res://sweLabel.gd" id="8_bl08m"]
@@ -16,11 +16,12 @@
 [ext_resource type="Script" path="res://StatTotalHashrateCapacity.gd" id="12_srdhx"]
 [ext_resource type="Script" path="res://StatActiveGPUs.gd" id="12_x2x01"]
 [ext_resource type="Script" path="res://StatTotalGPUs.gd" id="13_odikx"]
-[ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
 [ext_resource type="PackedScene" uid="uid://0v02ybouujmo" path="res://swehiring.tscn" id="14_t1c03"]
-[ext_resource type="PackedScene" uid="uid://7lagn2fuoey1" path="res://allswes.tscn" id="17_p0q30"]
-[ext_resource type="PackedScene" uid="uid://csyrpyibxl5h6" path="res://pmhiring.tscn" id="18_sm12j"]
+[ext_resource type="Script" path="res://StatWorstPad.gd" id="16_q5aa5"]
+[ext_resource type="PackedScene" path="res://allswes.tscn" id="17_p0q30"]
 [ext_resource type="PackedScene" uid="uid://bbdsb0u2divij" path="res://ipo.tscn" id="18_au8ge"]
+[ext_resource type="PackedScene" path="res://pmhiring.tscn" id="18_sm12j"]
+[ext_resource type="Texture2D" uid="uid://dtjuefa0k71x1" path="res://thinking.png" id="21_fwdce"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -70,6 +71,43 @@ texture = ExtResource("1_6e481")
 
 [sub_resource type="TileSet" id="TileSet_fqqwd"]
 sources/3 = SubResource("TileSetAtlasSource_25w3s")
+
+[sub_resource type="GDScript" id="GDScript_igwmf"]
+script/source = "extends RichTextLabel
+
+func _ready():
+	updateText()
+
+func _process(_delta):
+	updateText()
+	
+func updateText():
+	# BBCode string with an image and text
+	var bbcode_text = \"[img=40vw]res://crusoe_logo.png[/img] [color=#000000] Crypto Boxes \" + str(Global.crypto_boxes) +\" [/color]\"
+	text = bbcode_text
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vlobn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_fwdce")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_at8q8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_fwdce")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_b8v5n")
@@ -215,7 +253,14 @@ layout_mode = 2
 bbcode_enabled = true
 text = "Crypto Boxes: 0"
 fit_content = true
-script = ExtResource("13_wqrwc")
+script = SubResource("GDScript_igwmf")
+
+[node name="StatWorstPad" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Crypto Boxes: 0"
+fit_content = true
+script = ExtResource("16_q5aa5")
 
 [node name="docsLabel" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
 layout_mode = 2
@@ -233,5 +278,17 @@ position = Vector2(-523, 580)
 [node name="pmhiring" parent="." instance=ExtResource("18_sm12j")]
 position = Vector2(-366, -141)
 
+[node name="pm" parent="pmhiring" index="0"]
+position = Vector2(116, 89)
+scale = Vector2(0.475, 0.508333)
+sprite_frames = SubResource("SpriteFrames_vlobn")
+
+[node name="pm2" parent="pmhiring/sign" index="2"]
+position = Vector2(41.5, 44.5)
+scale = Vector2(0.55, 0.516667)
+sprite_frames = SubResource("SpriteFrames_at8q8")
+
 [node name="IPO" parent="." instance=ExtResource("18_au8ge")]
 position = Vector2(825, -356)
+
+[editable path="pmhiring"]

@@ -38,5 +38,4 @@ func _on_area_2d_body_exited(body):
 
 
 func _on_ipo_button_pressed():
-	print("attempt ipo")
 	attempt_ipo()

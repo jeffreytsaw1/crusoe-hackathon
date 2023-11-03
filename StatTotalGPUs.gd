@@ -15,5 +15,5 @@ func _process(_delta):
 	
 func updateText():
 	# BBCode string with an image and text
-	var bbcode_text = "[img]res://cloud_up.png[/img] [color=#000000] Capacity GPUs " + str(Global.gpu_capacity) +" [/color]"
+	var bbcode_text = "[img=40vw]res://cloud.png[/img] [color=#000000] Capacity GPUs " + str(Global.gpu_capacity) +" [/color]"
 	text = bbcode_text

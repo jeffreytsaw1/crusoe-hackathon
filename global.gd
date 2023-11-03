@@ -22,3 +22,5 @@ var num_pms = 0
 var documents = 0
 
 var IPO = false
+
+var worst_utility_pad = "None"

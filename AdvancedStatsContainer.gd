@@ -18,4 +18,4 @@ func _process(delta):
 	$MostRecentEventPad.text = "Recent Event: " + most_recent_event
 	$CloudCheckTimerPad.text = "Checked " + str(cloud_check) + "s ago"
 	$FixTimerPad.text = "Fixed in " + str(time_till_fixed) + "s"
-	$TotalEventProb.text = "Total event prob: " + str(total_event_prob)
+	$TotalEventProb.text = "Risk indicator: " + str(total_event_prob)

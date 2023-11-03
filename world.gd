@@ -51,3 +51,17 @@ func _process(delta):
 	Global.gpu_capacity += $Altuve.gpu_capacity
 	Global.gpu_capacity += $BrownBear.gpu_capacity
 	Global.gpu_capacity = snapped(Global.gpu_capacity, .1)
+	
+	Global.worst_utility_pad = getWorstUtilityPad()
+	
+func getWorstUtilityPad():
+	var worst_pad = "None"
+	var worst_utility = 1
+	for child in get_children():
+		if child.has_method("calcHashrateUtility"):
+			var pad_hashrate_utility = child.calcHashrateUtility()
+			var pad_gpu_utility = child.calcGPUUtility()
+			if (pad_hashrate_utility+pad_gpu_utility)/2 < worst_utility:
+				worst_utility = pad_hashrate_utility
+				worst_pad = child.name
+	return worst_pad

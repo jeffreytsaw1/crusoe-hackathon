@@ -21,8 +21,8 @@ const events = {
 	"ssh_failure": {"domain": "cloud", "probability": .001, "multiplier": .35},
 	"lightbits_failure": {"domain": "cloud", "probability": .001, "multiplier": .4},
 	"vm_died": {"domain": "cloud", "probability": .0075, "multiplier": .25},
-	"on_diesel": {"domain": "check_cloud", "probability": .0002, "multiplier": 1},
-	"hvac_failure": {"domain": "check_cloud", "probability": .0001, "multiplier": 1}
+	"on_diesel": {"domain": "check_cloud", "probability": .009, "multiplier": 1},
+	"hvac_failure": {"domain": "check_cloud", "probability": .0075, "multiplier": 1}
 }
 
 # defaults
@@ -93,11 +93,6 @@ func action_collect_bitcoin():
 
 func action_check():
 	last_check = Time.get_unix_time_from_system()
-	for event in events_occurred:
-		for event_key in events:
-			if event_key == event and events[event_key]["domain"] == "check_cloud":
-				events_occurred.erase(event)
-			
 	reset_next_time_of_failure()
 
 func reset_next_time_of_failure():
@@ -108,6 +103,7 @@ func process_induce_cloud_failure_if_needed():
 		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment
 	if next_time_of_failure < Time.get_unix_time_from_system():
 		active_gpus = 0
+	events_occurred.append(cloud_failure_reason)
 
 func pad_effect(multiplier):
 	hashrate = hashrate * multiplier
@@ -145,7 +141,7 @@ func process_update_events():
 		var iterations = 1
 		if events[event_key]["domain"] == "crypto":
 			iterations = num_crypto_boxes
-		if events[event_key]["domain"] == "cloud":
+		if events[event_key]["domain"] == "cloud" or events[event_key]["domain"] == "check_cloud":
 			iterations = num_cloud_boxes
 		if events[event_key]["domain"] == "box":
 			iterations = num_crypto_boxes + num_cloud_boxes
@@ -156,8 +152,10 @@ func process_update_events():
 			if num_mechanics == 2:
 				probability *= 0.85
 			var event_occurred = randf() < probability
-			events_occurred.append(event_key)
 			if event_occurred:
+				print("event:", event_key)
+				if events[event_key]["domain"] != "check_cloud":
+					events_occurred.append(event_key)
 				if events[event_key]["domain"] == "pad":
 					pad_effect(events[event_key]["multiplier"])
 				elif events[event_key]["domain"] == "check_cloud":
