@@ -7,3 +7,7 @@ func _process(delta):
 		var noise = 5000.0
 		Global.bitcoin_price += randf() * noise - noise/2 # permute bitcoin price
 		last_bitcoin_update = Time.get_unix_time_from_system()
+	
+	Global.total_hashrate = 0
+	Global.total_hashrate += $Altuve.hashrate
+	Global.total_hashrate += $BrownBear.hashrate

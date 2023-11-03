@@ -10,5 +10,5 @@ func _ready():
 func _process(delta):
 	pass
 
-func _physics_process(delta):
-	$mechanicLabel.text = ("= " + str(Global.num_mechanics))
+#func _physics_process(delta):
+#	$mechanicLabel.text = ("= " + str(Global.num_mechanics))
