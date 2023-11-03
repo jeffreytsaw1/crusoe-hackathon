@@ -49,7 +49,6 @@ var gameTick = Time.get_unix_time_from_system() + 1
 var check_cloud_box_increment = 40
 
 # fixes incur total downtime. time increases exponentially with missing capacity.
-# TODO do downtime divided by boxes
 func action_start_fix():
 	is_being_fixed = true
 	hashrate = 0

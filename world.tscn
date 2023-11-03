@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=20 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
@@ -12,8 +12,10 @@
 [ext_resource type="Script" path="res://StatTotalHashrate.gd" id="10_3h4jj"]
 [ext_resource type="Script" path="res://StatCloudBoxes.gd" id="11_t67vh"]
 [ext_resource type="Script" path="res://StatTotalHashrateCapacity.gd" id="12_srdhx"]
+[ext_resource type="Script" path="res://StatActiveGPUs.gd" id="12_x2x01"]
+[ext_resource type="Script" path="res://StatTotalGPUs.gd" id="13_odikx"]
 [ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
-[ext_resource type="PackedScene" uid="uid://0v02ybouujmo" path="res://swehiring.tscn" id="14_t1c03"]
+[ext_resource type="PackedScene" path="res://swehiring.tscn" id="14_t1c03"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -153,6 +155,18 @@ bbcode_enabled = true
 text = "Hash Capacity: 0"
 fit_content = true
 script = ExtResource("12_srdhx")
+
+[node name="StatActiveGPUs" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("12_x2x01")
+
+[node name="StatTotalGPUs" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("13_odikx")
 
 [node name="StatCloudBoxes" type="RichTextLabel" parent="CanvasLayer2/Control/GlobalStats"]
 layout_mode = 2

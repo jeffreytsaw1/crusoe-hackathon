@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://uxw8wt6hyl1w"]
+[gd_scene load_steps=11 format=3 uid="uid://ctvx3ol7o8iyt"]
 
 [ext_resource type="Texture2D" uid="uid://dgpjniklsm6lm" path="res://hashrate.png" id="1_pm31e"]
 [ext_resource type="Script" path="res://statsandactions.gd" id="1_rbd5i"]
 [ext_resource type="Texture2D" uid="uid://c1lokkoupl4r8" path="res://cloud_down.png" id="2_wkpkb"]
 [ext_resource type="Texture2D" uid="uid://b8jpw28f70luu" path="res://cloud_up.png" id="3_f43po"]
+[ext_resource type="Script" path="res://upgrademinerstext.gd" id="5_05obu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fo4hm"]
 atlas = ExtResource("1_pm31e")
@@ -48,113 +49,107 @@ animations = [{
 }]
 
 [node name="statsandactions" type="StaticBody2D"]
-rotation = 0.000825922
 script = ExtResource("1_rbd5i")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 1.34518
-offset_top = 2.99889
-offset_right = 398.345
-offset_bottom = 417.999
+offset_left = 468.0
+offset_top = -10.0
+offset_right = 865.0
+offset_bottom = 405.0
 color = Color(0.196078, 0.188235, 0.184314, 1)
 
 [node name="hashrateicon" type="AnimatedSprite2D" parent="."]
-position = Vector2(118.845, 63.0185)
+position = Vector2(585.5, 33)
 scale = Vector2(0.802084, 0.763158)
 sprite_frames = SubResource("SpriteFrames_a7xn7")
 
 [node name="hashrate" type="RichTextLabel" parent="."]
-offset_left = 88.3452
-offset_top = 86.9989
-offset_right = 164.345
-offset_bottom = 115.999
+offset_left = 555.0
+offset_top = 57.0
+offset_right = 631.0
+offset_bottom = 86.0
 text = "Hashrate
 "
 
 [node name="cloudstatusicon" type="AnimatedSprite2D" parent="."]
-position = Vector2(250.345, 63.9989)
+position = Vector2(717, 34)
 sprite_frames = SubResource("SpriteFrames_fm7yt")
 animation = &"cloudon"
 
 [node name="clouduptime" type="RichTextLabel" parent="."]
-offset_left = 202.345
-offset_top = 88.9989
-offset_right = 328.345
-offset_bottom = 128.999
+offset_left = 669.0
+offset_top = 59.0
+offset_right = 795.0
+offset_bottom = 99.0
 text = "Active GPUs"
 
 [node name="hashratevalue" type="RichTextLabel" parent="."]
-offset_left = 77.3452
-offset_top = 110.999
-offset_right = 175.345
-offset_bottom = 150.999
+offset_left = 544.0
+offset_top = 81.0
+offset_right = 642.0
+offset_bottom = 121.0
 text = "uytfiuftiutf"
 
 [node name="clouduptimevalue" type="RichTextLabel" parent="."]
-offset_left = 215.345
-offset_top = 111.999
-offset_right = 322.345
-offset_bottom = 151.999
+offset_left = 682.0
+offset_top = 82.0
+offset_right = 789.0
+offset_bottom = 122.0
 text = "23456677"
 
 [node name="upgrademinerstext" type="RichTextLabel" parent="."]
-offset_left = 67.3452
-offset_top = 172.999
-offset_right = 338.345
-offset_bottom = 204.999
+offset_left = 534.0
+offset_top = 140.0
+offset_right = 805.0
+offset_bottom = 172.0
+bbcode_enabled = true
 text = "Upgrade Miners						100"
+script = ExtResource("5_05obu")
 
 [node name="upgrademinerstext2" type="RichTextLabel" parent="."]
-offset_left = 68.3452
-offset_top = 233.999
-offset_right = 339.345
-offset_bottom = 265.999
+offset_left = 535.0
+offset_top = 201.0
+offset_right = 806.0
+offset_bottom = 233.0
 text = "Maintenance							100"
 
 [node name="upgrademinerstext3" type="RichTextLabel" parent="."]
-offset_left = 69.3452
-offset_top = 292.999
-offset_right = 338.345
-offset_bottom = 324.999
+offset_left = 536.0
+offset_top = 260.0
+offset_right = 805.0
+offset_bottom = 292.0
 text = "Fix issue					      	            100"
 
 [node name="upgrademinerstext4" type="RichTextLabel" parent="."]
-offset_left = 72.3452
-offset_top = 354.999
-offset_right = 343.345
-offset_bottom = 386.999
+offset_left = 539.0
+offset_top = 322.0
+offset_right = 810.0
+offset_bottom = 354.0
 text = "Check    			  						   100"
 
 [node name="upgrademiners" type="Button" parent="."]
-offset_left = 55.3452
-offset_top = 162.999
-offset_right = 343.345
-offset_bottom = 209.999
+offset_left = 522.0
+offset_top = 128.0
+offset_right = 810.0
+offset_bottom = 175.0
 
 [node name="maintenance" type="Button" parent="."]
-offset_left = 55.3452
-offset_top = 222.999
-offset_right = 344.345
-offset_bottom = 271.999
+offset_left = 522.0
+offset_top = 188.0
+offset_right = 811.0
+offset_bottom = 237.0
 
 [node name="fix" type="Button" parent="."]
-offset_left = 56.3452
-offset_top = 284.999
-offset_right = 345.345
-offset_bottom = 333.999
+offset_left = 523.0
+offset_top = 250.0
+offset_right = 812.0
+offset_bottom = 299.0
 
 [node name="check" type="Button" parent="."]
-offset_left = 56.3452
-offset_top = 345.999
-offset_right = 345.345
-offset_bottom = 394.999
-
-[node name="name" type="RichTextLabel" parent="."]
-offset_left = 5.34518
-offset_top = 12.9989
-offset_right = 147.345
-offset_bottom = 52.9989
-text = "Brownbear"
+offset_left = 523.0
+offset_top = 311.0
+offset_right = 812.0
+offset_bottom = 360.0
 
 [connection signal="pressed" from="upgrademiners" to="." method="_on_upgrademiners_pressed"]
 [connection signal="pressed" from="maintenance" to="." method="_on_maintenance_pressed"]

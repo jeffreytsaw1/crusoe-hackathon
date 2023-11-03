@@ -13,4 +13,7 @@ var crypto_boxes = 0
 var total_hashrate = 0
 var total_hashrate_capacity = 0
 
+var active_gpus = 0
+var gpu_capacity = 0
+
 var bitcoin_price = 3.5

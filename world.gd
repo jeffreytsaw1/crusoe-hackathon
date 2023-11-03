@@ -32,7 +32,16 @@ func _process(delta):
 	Global.crypto_boxes += $Altuve.num_crypto_boxes
 	Global.crypto_boxes += $BrownBear.num_crypto_boxes
 	
-	
 	Global.cloud_boxes = 0
 	Global.cloud_boxes += $Altuve.num_cloud_boxes
 	Global.cloud_boxes += $BrownBear.num_cloud_boxes
+	
+	Global.active_gpus = 0
+	Global.active_gpus += $Altuve.active_gpus
+	Global.active_gpus += $BrownBear.active_gpus
+	Global.active_gpus = snapped(Global.active_gpus, .1)
+	
+	Global.gpu_capacity = 0
+	Global.gpu_capacity += $Altuve.gpu_capacity
+	Global.gpu_capacity += $BrownBear.gpu_capacity
+	Global.gpu_capacity = snapped(Global.gpu_capacity, .1)
