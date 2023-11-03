@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=31 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
@@ -22,9 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://bbdsb0u2divij" path="res://ipo.tscn" id="18_au8ge"]
 [ext_resource type="PackedScene" path="res://pmhiring.tscn" id="18_sm12j"]
 [ext_resource type="Texture2D" uid="uid://dtjuefa0k71x1" path="res://thinking.png" id="21_fwdce"]
-[ext_resource type="PackedScene" uid="uid://7lagn2fuoey1" path="res://allswes.tscn" id="17_p0q30"]
-[ext_resource type="PackedScene" path="res://ipo.tscn" id="18_au8ge"]
-[ext_resource type="PackedScene" uid="uid://csyrpyibxl5h6" path="res://pmhiring.tscn" id="18_sm12j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -191,9 +188,9 @@ script = ExtResource("5_0lesq")
 clip_contents = true
 layout_mode = 0
 offset_top = 2.0
-offset_right = 191.0
-offset_bottom = 242.0
-color = Color(0.0509804, 0.054902, 0.027451, 1)
+offset_right = 160.0
+offset_bottom = 177.0
+color = Color(0.0509804, 0.054902, 0.027451, 0.807843)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0

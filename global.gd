@@ -5,7 +5,7 @@ var money = 1000
 var esg_rating = 5
 
 var num_swe = 2
-var num_mechanics = 1
+var num_mechanics = 0
 
 var cloud_boxes = 0
 var crypto_boxes = 0

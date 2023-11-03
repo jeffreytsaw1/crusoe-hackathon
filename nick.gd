@@ -27,7 +27,8 @@ func _input(event):
 		Global.money >= mechanics_cost):
 			Global.money -= mechanics_cost
 			num_mechanics += 1
-			
+			Global.num_mechanics += 1
+			$sign.updateNickButton(num_mechanics, max_mechanics)
 
 
 func _on_area_2d_body_entered(body):

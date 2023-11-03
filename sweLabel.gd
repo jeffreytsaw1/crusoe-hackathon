@@ -8,5 +8,5 @@ func _process(_delta):
 	
 func update():
 	# BBCode string with an image and text
-	var bbcode_text = "[img=40vw]res://chicken.png[/img][color=#bc544b] SWEs " + str(Global.num_swe) + "[/color]"
+	var bbcode_text = "[img=40vw]res://chicken.png[/img][color=#f7b4bb] SWEs " + str(Global.num_swe) + "[/color]"
 	text = bbcode_text
