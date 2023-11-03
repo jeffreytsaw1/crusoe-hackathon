@@ -58,8 +58,8 @@ func action_start_fix():
 	hashrate = 0
 	active_gpus = 0
 	
-	var cloud_fix_time = 1.7*pow((gpu_capacity-active_gpus)/20,3)
-	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/10,2)
+	var cloud_fix_time = 1.7*pow((gpu_capacity-active_gpus)/15,3)
+	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/70,2)
 	if num_mechanics >= 1:
 		cloud_fix_time *= 0.85
 		crypto_fix_time *= 0.85
@@ -85,7 +85,7 @@ func process_mine_bitcoin():
 		bitcoins += 1
 		
 func process_cloud_revenue():
-	Global.money += 0.7 * active_gpus
+	Global.money += 0.3 * active_gpus
 
 func action_collect_bitcoin():
 	Global.money +=  bitcoins * Global.bitcoin_price

@@ -1,22 +1,24 @@
-[gd_scene load_steps=23 format=3 uid="uid://biy07s3t8pske"]
+[gd_scene load_steps=25 format=3 uid="uid://biy07s3t8pske"]
 
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="1_6e481"]
 [ext_resource type="Script" path="res://world.gd" id="1_b8v5n"]
 [ext_resource type="PackedScene" uid="uid://6upxv8n0ij1s" path="res://player.tscn" id="2_o4541"]
-[ext_resource type="PackedScene" uid="uid://bhxgsiwfychjx" path="res://pad .tscn" id="3_o7ej4"]
+[ext_resource type="PackedScene" uid="uid://bdsgia7tid3tx" path="res://pad .tscn" id="3_o7ej4"]
 [ext_resource type="Script" path="res://playerCamera.gd" id="3_skmhl"]
 [ext_resource type="Script" path="res://inventory.gd" id="5_0lesq"]
 [ext_resource type="Script" path="res://sweLabel.gd" id="8_bl08m"]
 [ext_resource type="Script" path="res://mechanicLabel.gd" id="9_k1kiw"]
 [ext_resource type="Script" path="res://moneyLabel.gd" id="9_wnhuu"]
 [ext_resource type="Script" path="res://StatTotalHashrate.gd" id="10_3h4jj"]
+[ext_resource type="Script" path="res://docsLabel.gd" id="10_oca71"]
 [ext_resource type="Script" path="res://StatCloudBoxes.gd" id="11_t67vh"]
 [ext_resource type="Script" path="res://StatTotalHashrateCapacity.gd" id="12_srdhx"]
 [ext_resource type="Script" path="res://StatActiveGPUs.gd" id="12_x2x01"]
 [ext_resource type="Script" path="res://StatTotalGPUs.gd" id="13_odikx"]
 [ext_resource type="Script" path="res://StatCryptoBoxes.gd" id="13_wqrwc"]
 [ext_resource type="PackedScene" uid="uid://0v02ybouujmo" path="res://swehiring.tscn" id="14_t1c03"]
-[ext_resource type="PackedScene" path="res://allswes.tscn" id="17_p0q30"]
+[ext_resource type="PackedScene" uid="uid://7lagn2fuoey1" path="res://allswes.tscn" id="17_p0q30"]
+[ext_resource type="PackedScene" uid="uid://csyrpyibxl5h6" path="res://pmhiring.tscn" id="18_sm12j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qbnkj"]
 texture = ExtResource("1_6e481")
@@ -109,14 +111,17 @@ script = ExtResource("5_0lesq")
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
 clip_contents = true
 layout_mode = 0
-offset_right = 241.0
-offset_bottom = 181.0
+offset_top = 2.0
+offset_right = 191.0
+offset_bottom = 242.0
 color = Color(0.0509804, 0.054902, 0.027451, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_right = 240.0
-offset_bottom = 180.0
+offset_left = 3.0
+offset_top = -4.0
+offset_right = 243.0
+offset_bottom = 176.0
 
 [node name="mechanicLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
@@ -141,6 +146,13 @@ text = "Money Label"
 fit_content = true
 script = ExtResource("9_wnhuu")
 metadata/_edit_use_anchors_ = true
+
+[node name="docsLabel" type="RichTextLabel" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Docs Label"
+fit_content = true
+script = ExtResource("10_oca71")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 0
@@ -208,3 +220,6 @@ position = Vector2(-114, -93)
 
 [node name="allswes" parent="." instance=ExtResource("17_p0q30")]
 position = Vector2(-523, 580)
+
+[node name="pmhiring" parent="." instance=ExtResource("18_sm12j")]
+position = Vector2(-366, -141)

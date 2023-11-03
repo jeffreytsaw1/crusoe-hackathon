@@ -1,6 +1,7 @@
 extends Node2D
 
 var last_bitcoin_update = Time.get_unix_time_from_system()
+var documentTick = Time.get_unix_time_from_system() + 10
 
 func clamp(num, mi, ma):
 	if num < mi:
@@ -10,6 +11,11 @@ func clamp(num, mi, ma):
 	return num
 		
 func _process(delta):
+	# get documents every 10 seconds
+	if Time.get_unix_time_from_system() > documentTick:
+		Global.documents += Global.num_pms * 1
+		documentTick = Time.get_unix_time_from_system() + 10
+		
 	if Time.get_unix_time_from_system() - last_bitcoin_update > 60: # update every minute
 		var noise = Global.bitcoin_price/100
 		Global.bitcoin_price += randf() * noise - noise/2 # permute bitcoin price

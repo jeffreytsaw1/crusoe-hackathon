@@ -16,4 +16,7 @@ var total_hashrate_capacity = 0
 var active_gpus = 0
 var gpu_capacity = 0
 
-var bitcoin_price = 50
+var bitcoin_price = 85
+
+var num_pms = 0
+var documents = 0
