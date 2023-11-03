@@ -35,6 +35,7 @@ var active_gpus = 0
 var num_crypto_boxes = 0
 var num_cloud_boxes = 0
 
+var last_check = Time.get_unix_time_from_system()
 var next_time_of_failure = 0 # for cloud boxes
 var cloud_failure_reason = ""
 var events_occurred = [] # maintain list of events that have occurred
@@ -50,6 +51,7 @@ var check_cloud_box_increment = 40
 
 # fixes incur total downtime. time increases exponentially with missing capacity.
 func action_start_fix():
+	events_occurred = []
 	is_being_fixed = true
 	hashrate = 0
 	active_gpus = 0
@@ -86,13 +88,11 @@ func action_collect_bitcoin():
 	bitcoins = 0
 
 func action_check():
+	last_check = Time.get_unix_time_from_system()
 	reset_next_time_of_failure()
 
 func reset_next_time_of_failure():
 	next_time_of_failure = 0
-
-func check():
-	return next_time_of_failure != 0
 
 func process_induce_cloud_failure_if_needed():
 	if next_time_of_failure == 0:
@@ -120,6 +120,10 @@ func delayed_cloud_effect():
 		next_time_of_failure = Time.get_unix_time_from_system() + check_cloud_box_increment; # 40s from now
 
 func process_update_events():
+	# prevent events during fix
+	if is_being_fixed:
+		return
+		
 	# upgrade event counter
 	event_counter -= 1
 	if event_counter == 0:
@@ -168,6 +172,7 @@ func action_attempt_perform_upgrade():
 	Global.money -= get_next_upgrade_total_cost()
 	crypto_upgrades[i]["state"] = true
 	hashrate_capacity *= crypto_upgrades[i]["multiplier"]
+	hashrate = hashrate_capacity
 	return true
 
 func get_next_crypto_upgrade_index():
@@ -222,6 +227,7 @@ func _ready():
 	$menu.get_node("statsandactions").fix_action_taken.connect(action_start_fix)
 	$menu.get_node("statsandactions").check_taken.connect(action_check)
 	$menu.get_node("shopmenu").buy_button_pressed.connect(boughtPad)
+	$AdvancedStats.visible = false
 	set_process_input(true)
 	
 	
@@ -241,8 +247,15 @@ func _process(delta):
 		process_end_fix()
 		_on_timer_timeout()
 		$menu.get_node("statsandactions").upgrade_miners_cost = get_next_upgrade_total_cost()
+		
+		var next_index = get_next_crypto_upgrade_index()
+		if next_index == -1:
+			$menu.get_node("statsandactions").next_upgrade_name = "None"
+		else:
+			$menu.get_node("statsandactions").next_upgrade_name = crypto_upgrades[next_index]["name"]
 
 		gameTick = Time.get_unix_time_from_system() + 1
+	sendAdvancedStatsToChild()
 		
 
 func _on_area_2d_body_entered(body):
@@ -253,6 +266,7 @@ func _on_area_2d_body_entered(body):
 
 func _on_area_2d_body_exited(body):
 	$menu.unrender()
+	$AdvancedStats.visible = false
 	interactable_body = null
 	
 func _input(event):
@@ -262,4 +276,56 @@ func _input(event):
 			$bitcoin.visible = false
 		if event.is_action_pressed("ui_text_backspace"):
 			$menu.render()
+		if event.is_action_pressed("ui_text_indent"):
+			$AdvancedStats.visible = !$AdvancedStats.visible
 
+
+
+
+
+
+
+
+
+
+
+# STATS
+
+func sendAdvancedStatsToChild():
+	$AdvancedStats.hashrate_utility = calcHashrateUtility()
+	$AdvancedStats.gpu_utility = calcGPUUtility()
+	$AdvancedStats.most_recent_event = mostRecentEvent()
+	$AdvancedStats.time_till_fixed = timeTillFixed()
+	$AdvancedStats.cloud_check = sinceLastCheck()
+	$AdvancedStats.total_event_prob = calcEventsTotalProb()
+
+func calcHashrateUtility():
+	if hashrate_capacity ==0:
+		return 0
+	return snapped(hashrate/hashrate_capacity, .01)
+	
+func calcGPUUtility():
+	if gpu_capacity ==0:
+		return 0
+	return snapped(active_gpus/gpu_capacity, .01)
+	
+func mostRecentEvent():
+	if len(events_occurred) == 0:
+		return "None"
+	return events_occurred[len(events_occurred)-1]
+	
+func timeTillFixed():
+	var diffTime = snapped(end_maintenance_time-Time.get_unix_time_from_system(), 1)
+	if diffTime > 0:
+		return diffTime
+	else:
+		return 0
+
+func sinceLastCheck():
+	return snapped(Time.get_unix_time_from_system() - last_check, 0)
+	
+func calcEventsTotalProb():
+	var total_prob = 0
+	for event_key in events:
+		total_prob += events[event_key]["probability"]
+	return total_prob

@@ -94,7 +94,7 @@ tilemapBackground = NodePath("../../background")
 position = Vector2(235, 272)
 
 [node name="Altuve" parent="." instance=ExtResource("3_o7ej4")]
-position = Vector2(724, 273)
+position = Vector2(723, 272)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 0

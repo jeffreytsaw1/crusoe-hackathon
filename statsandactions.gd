@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 var upgrade_miners_cost = 100
+var next_upgrade_name = ""
 const maintenance_cost = 100
 const fix_cost = 100
 

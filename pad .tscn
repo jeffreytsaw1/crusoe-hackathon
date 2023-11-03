@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://pad.gd" id="1_ya8v6"]
 [ext_resource type="Texture2D" uid="uid://c4lr13ok66rd8" path="res://farmingTilesheetComplete.png" id="2_k5cmt"]
 [ext_resource type="PackedScene" uid="uid://w3605uo10aq6" path="res://menu.tscn" id="3_kjdh1"]
+[ext_resource type="Script" path="res://AdvancedStats.gd" id="4_r3ous"]
+[ext_resource type="Script" path="res://AdvancedStatsContainer.gd" id="5_j7rbc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jv3d0"]
 atlas = ExtResource("2_k5cmt")
@@ -45,6 +47,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Theme" id="Theme_213r6"]
+
 [node name="pad" type="StaticBody2D"]
 script = ExtResource("1_ya8v6")
 
@@ -68,10 +72,102 @@ shape = SubResource("CircleShape2D_upjhx")
 [node name="menu" parent="." instance=ExtResource("3_kjdh1")]
 position = Vector2(79, -180)
 
+[node name="statsandactions" parent="menu" index="1"]
+position = Vector2(-467, 9)
+
+[node name="ColorRect" parent="menu/statsandactions" index="0"]
+metadata/_edit_use_anchors_ = true
+
+[node name="hashrate" parent="menu/statsandactions" index="2"]
+metadata/_edit_use_anchors_ = true
+
+[node name="clouduptime" parent="menu/statsandactions" index="4"]
+metadata/_edit_use_anchors_ = true
+
+[node name="hashratevalue" parent="menu/statsandactions" index="5"]
+metadata/_edit_use_anchors_ = true
+
+[node name="clouduptimevalue" parent="menu/statsandactions" index="6"]
+metadata/_edit_use_anchors_ = true
+
+[node name="upgrademinerstext" parent="menu/statsandactions" index="7"]
+metadata/_edit_use_anchors_ = true
+
+[node name="upgrademinerstext2" parent="menu/statsandactions" index="8"]
+metadata/_edit_use_anchors_ = true
+
+[node name="upgrademinerstext3" parent="menu/statsandactions" index="9"]
+metadata/_edit_use_anchors_ = true
+
+[node name="upgrademinerstext4" parent="menu/statsandactions" index="10"]
+metadata/_edit_use_anchors_ = true
+
+[node name="upgrademiners" parent="menu/statsandactions" index="11"]
+metadata/_edit_use_anchors_ = true
+
+[node name="maintenance" parent="menu/statsandactions" index="12"]
+metadata/_edit_use_anchors_ = true
+
+[node name="fix" parent="menu/statsandactions" index="13"]
+metadata/_edit_use_anchors_ = true
+
+[node name="check" parent="menu/statsandactions" index="14"]
+metadata/_edit_use_anchors_ = true
+
 [node name="bitcoin" type="AnimatedSprite2D" parent="."]
 position = Vector2(20, 47)
 scale = Vector2(1.9375, 1.75)
 sprite_frames = SubResource("SpriteFrames_ba652")
+
+[node name="AdvancedStats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_r3ous")
+
+[node name="AdvancedStatsColor" type="ColorRect" parent="AdvancedStats"]
+layout_mode = 0
+offset_left = -223.0
+offset_top = -99.0
+offset_right = -1.0
+offset_bottom = 125.0
+color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[node name="AdvancedStatsContainer" type="VBoxContainer" parent="AdvancedStats"]
+layout_mode = 0
+offset_left = -210.0
+offset_top = -76.0
+offset_right = -5.0
+offset_bottom = 122.0
+theme = SubResource("Theme_213r6")
+script = ExtResource("5_j7rbc")
+
+[node name="CryptoUtilityPad" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Crypto Utility: 0"
+
+[node name="GPUUtilityPad" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "GPU Utility: 0"
+
+[node name="MostRecentEventPad" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
+layout_mode = 2
+text = "Event: None"
+
+[node name="CloudCheckTimerPad" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
+layout_mode = 2
+text = "Check in: 0s"
+
+[node name="FixTimerPad" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
+layout_mode = 2
+text = "Fix in: 0s"
+
+[node name="TotalEventProb" type="Label" parent="AdvancedStats/AdvancedStatsContainer"]
+layout_mode = 2
+text = "EV Loss: 0"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
