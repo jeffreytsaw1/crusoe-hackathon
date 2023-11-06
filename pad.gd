@@ -67,13 +67,14 @@ func action_start_fix():
 	is_being_fixed = true
 	hashrate = 0
 	active_gpus = 0
+	last_check = Time.get_unix_time_from_system()
 	
 	var cloud_fix_time = 1.7*pow((gpu_capacity-active_gpus)/15,3)
 	var crypto_fix_time = 1.4*pow((hashrate_capacity-hashrate)/70,2)
 	if num_mechanics >= 1:
 		cloud_fix_time *= 0.85
 		crypto_fix_time *= 0.85
-	end_maintenance_time = Time.get_unix_time_from_system() + crypto_fix_time + cloud_fix_time
+	end_maintenance_time = Time.get_unix_time_from_system() + min(crypto_fix_time + cloud_fix_time, 120)
 	
 func process_end_fix():
 	if end_maintenance_time == 0:
@@ -87,6 +88,7 @@ func end_fix():
 	active_gpus = gpu_capacity
 	is_being_fixed = false
 	end_maintenance_time = 0
+	last_check = Time.get_unix_time_from_system()
 
 func process_mine_bitcoin():
 	if randf() < probability_bitcoin_per_TH*hashrate:
@@ -112,25 +114,24 @@ func process_induce_cloud_failure_if_needed():
 	# if we have passed some non zero threshold
 	if next_time_of_failure < Time.get_unix_time_from_system():
 		active_gpus = 0
-		print("cloud fail: ", cloud_failure_reason)
 		events_occurred.append(cloud_failure_reason)
 		cloud_failure_reason = ""
 		reset_next_time_of_failure()
 
 func pad_effect(multiplier):
-	hashrate = hashrate * multiplier
+	hashrate = snapped(hashrate * multiplier, .1)
 
 func box_effect(multiplier, box_type):
 	match box_type:
 		"crypto":
 			if hashrate > 0:
-				hashrate = hashrate - hashrate * ((1.0-multiplier) / num_crypto_boxes)
+				hashrate = snapped(hashrate - hashrate * ((1.0-multiplier) / num_crypto_boxes), .1)
 		"cloud":
 			if active_gpus > 0:
-				active_gpus = active_gpus - active_gpus * ((1.0-multiplier) / num_cloud_boxes)
+				active_gpus = snapped(active_gpus - active_gpus * ((1.0-multiplier) / num_cloud_boxes), .1)
 		"box":
 			if hashrate > 0:
-				hashrate = hashrate - hashrate * ((1.0-multiplier) / (num_crypto_boxes + num_crypto_boxes))
+				hashrate = snapped(hashrate - hashrate * ((1.0-multiplier) / (num_crypto_boxes + num_crypto_boxes)), .1)
 			
 func delayed_cloud_effect():
 	if next_time_of_failure == 0:
@@ -240,6 +241,7 @@ func boughtPad():
 	hashrate = hashrate_capacity
 	gpu_capacity = num_cloud_boxes * active_gpus_per_box
 	active_gpus = gpu_capacity
+	last_check = Time.get_unix_time_from_system()
 		
 	
 	
@@ -264,6 +266,19 @@ func _ready():
 	$fire.visible = false
 	
 
+var degradation_counter = 10
+func process_degrade():
+	degradation_counter -=1
+	if degradation_counter == 0:
+		degradation_counter = 10
+	else:
+		return
+	
+	if calcGPUUtility()<1:
+		active_gpus = snapped(active_gpus*.98, .1)
+	if calcHashrateUtility()<1:
+		hashrate = snapped(hashrate*.98, .1)
+	
 	
 	
 	
@@ -277,6 +292,7 @@ func _process(delta):
 	else:
 		$bitcoin.visible = false
 	if Time.get_unix_time_from_system() >= gameTick:
+		process_degrade()
 		process_mine_bitcoin()
 		process_induce_cloud_failure_if_needed()
 		process_cloud_revenue()
@@ -294,7 +310,7 @@ func _process(delta):
 			$menu.get_node("statsandactions").next_upgrade_name = "None"
 		else:
 			$menu.get_node("statsandactions").next_upgrade_name = crypto_upgrades[next_index]["name"]
-
+		
 		gameTick = Time.get_unix_time_from_system() + 1
 	sendAdvancedStatsToChild()
 		

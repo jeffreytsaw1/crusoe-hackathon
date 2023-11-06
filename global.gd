@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var money = 1000
+var money = 300
 var esg_rating = 5
 
 var num_swe = 2

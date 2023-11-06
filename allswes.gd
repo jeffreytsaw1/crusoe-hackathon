@@ -29,7 +29,7 @@ func _process(delta):
 			
 		$swehappiness.text = str(swe_happiness)
 		
-		if swe_happiness == 0:
+		if swe_happiness == 0 && Global.num_swe > 0:
 			Global.num_swe -= 1
 		else:
 			swe_happiness -= 0.5

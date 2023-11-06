@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-const min_money = 1000
+const min_money = 2000
 var failed_ipo = false
 
 func attempt_ipo():

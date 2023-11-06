@@ -345,4 +345,5 @@ sprite_frames = SubResource("SpriteFrames_at8q8")
 [node name="IPO" parent="." instance=ExtResource("18_au8ge")]
 position = Vector2(825, -356)
 
+[editable path="allswes"]
 [editable path="pmhiring"]
